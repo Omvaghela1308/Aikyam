@@ -4,6 +4,7 @@ import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Html, Text, Float } from '@react-three/drei';
 import * as THREE from 'three';
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { WorkerTelemetry } from '@/types/telemetry';
 
 // Level definitions
@@ -26,9 +27,9 @@ export const LEVELS: LevelInfo[] = [
 interface MineMap3DProps {
   activeLevelIndex: number;
   is3dStackedView: boolean;
-  tilt: number;
-  rotation: number;
   zoomScale: number;
+  /** Increment to fly the camera back to the default viewing angle */
+  resetViewKey: number;
   workers: WorkerTelemetry[];
   selectedWorkerId: string | null;
   onSelectWorker: (id: string | null) => void;
@@ -36,85 +37,119 @@ interface MineMap3DProps {
 }
 
 // ----------------------------------------------------------------------
-// CAMERA CONTROLLER (Smooth 1.5s Flight Navigation & User Controls)
+// CAMERA CONTROLLER
+// Drag (mouse or one finger) rotates and tilts, wheel or pinch zooms,
+// right-drag or two fingers pans. The camera only flies on its own when the
+// level, selected worker, zoom buttons or reset change; otherwise the user's
+// hand owns it.
 // ----------------------------------------------------------------------
+const MIN_DISTANCE = 8;
+const MAX_DISTANCE = 140;
+// Default view: 45° tilt, looking from the +Z side
+const DEFAULT_VIEW_DIR = new THREE.Vector3(0, Math.cos(Math.PI / 4), Math.sin(Math.PI / 4));
+
 function CameraController({
   activeLevelIndex,
   is3dStackedView,
-  tilt,
-  rotation,
   zoomScale,
+  resetViewKey,
   selectedWorkerPos,
 }: {
   activeLevelIndex: number;
   is3dStackedView: boolean;
-  tilt: number;
-  rotation: number;
   zoomScale: number;
+  resetViewKey: number;
   selectedWorkerPos: [number, number, number] | null;
 }) {
   const { camera } = useThree();
-  const controlsRef = useRef<any>(null);
+  const controlsRef = useRef<OrbitControlsImpl>(null);
 
-  // Target camera state
   const targetCamPos = useRef(new THREE.Vector3(0, 35, 55));
   const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
+  const isFlying = useRef(true);
+  const prevZoomScale = useRef(zoomScale);
+  const prevResetKey = useRef(resetViewKey);
 
-  // Compute desired camera destination from level, tilt, rotation, and zoom
+  // Direction the user is currently looking from, so a flight keeps their angle
+  const currentViewDir = () => {
+    const target = controlsRef.current?.target ?? targetLookAt.current;
+    const dir = camera.position.clone().sub(target);
+    return dir.lengthSq() > 0.0001 ? dir.normalize() : DEFAULT_VIEW_DIR.clone();
+  };
+
+  // Level, stacked view, selected worker or reset: fly to a new focus point
   useEffect(() => {
-    // 1. Determine focal center (lookAt)
-    let lookAtY = 0;
-    let lookAtX = 0;
-    let lookAtZ = 0;
-    let baseDistance = 52;
+    let lookAt: THREE.Vector3;
+    let baseDistance: number;
 
     if (selectedWorkerPos) {
-      lookAtX = selectedWorkerPos[0];
-      lookAtY = selectedWorkerPos[1];
-      lookAtZ = selectedWorkerPos[2];
+      lookAt = new THREE.Vector3(...selectedWorkerPos);
       baseDistance = 22;
     } else {
       const currentLevel = LEVELS[activeLevelIndex] || LEVELS[0];
-      lookAtY = is3dStackedView ? currentLevel.yStacked : currentLevel.yNormal;
+      lookAt = new THREE.Vector3(0, is3dStackedView ? currentLevel.yStacked : currentLevel.yNormal, 0);
       baseDistance = activeLevelIndex === 0 ? 54 : 36;
     }
 
-    targetLookAt.current.set(lookAtX, lookAtY, lookAtZ);
+    const resetRequested = resetViewKey !== prevResetKey.current;
+    prevResetKey.current = resetViewKey;
+    const dir = resetRequested || !controlsRef.current ? DEFAULT_VIEW_DIR.clone() : currentViewDir();
+    const distance = THREE.MathUtils.clamp(baseDistance / Math.max(zoomScale, 0.4), MIN_DISTANCE, MAX_DISTANCE);
 
-    // 2. Spherical Orbit Position from Tilt & Rotation Sliders
-    const effectiveDist = baseDistance / Math.max(zoomScale, 0.4);
-    const radTilt = THREE.MathUtils.degToRad(THREE.MathUtils.clamp(tilt, 15, 85));
-    const radRot = THREE.MathUtils.degToRad(rotation);
+    targetLookAt.current.copy(lookAt);
+    targetCamPos.current.copy(lookAt).addScaledVector(dir, distance);
+    isFlying.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeLevelIndex, is3dStackedView, selectedWorkerPos, resetViewKey]);
 
-    const camX = lookAtX + effectiveDist * Math.sin(radTilt) * Math.sin(radRot);
-    const camY = lookAtY + effectiveDist * Math.cos(radTilt);
-    const camZ = lookAtZ + effectiveDist * Math.sin(radTilt) * Math.cos(radRot);
+  // Zoom buttons: move closer or further along the current viewing angle
+  useEffect(() => {
+    if (prevZoomScale.current === zoomScale || !controlsRef.current) {
+      prevZoomScale.current = zoomScale;
+      return;
+    }
+    const target = controlsRef.current.target;
+    const currentDistance = camera.position.distanceTo(target);
+    const distance = THREE.MathUtils.clamp(
+      currentDistance * (prevZoomScale.current / zoomScale),
+      MIN_DISTANCE,
+      MAX_DISTANCE
+    );
+    prevZoomScale.current = zoomScale;
 
-    targetCamPos.current.set(camX, camY, camZ);
-  }, [activeLevelIndex, is3dStackedView, selectedWorkerPos, tilt, rotation, zoomScale]);
+    targetLookAt.current.copy(target);
+    targetCamPos.current.copy(target).addScaledVector(currentViewDir(), distance);
+    isFlying.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zoomScale]);
 
   useFrame((_, delta) => {
+    if (!isFlying.current || !controlsRef.current) return;
     const lerpSpeed = Math.min(delta * 3.5, 0.18);
-
-    // Smoothly fly camera to target position
     camera.position.lerp(targetCamPos.current, lerpSpeed);
-
-    if (controlsRef.current) {
-      controlsRef.current.target.lerp(targetLookAt.current, lerpSpeed);
-      controlsRef.current.update();
+    controlsRef.current.target.lerp(targetLookAt.current, lerpSpeed);
+    if (camera.position.distanceTo(targetCamPos.current) < 0.05) {
+      isFlying.current = false;
     }
   });
 
   return (
     <OrbitControls
       ref={controlsRef}
+      makeDefault
       enableDamping
-      dampingFactor={0.05}
-      maxPolarAngle={Math.PI / 2 + 0.05}
-      minDistance={8}
-      maxDistance={140}
-      panSpeed={1.2}
-      rotateSpeed={0.8}
+      dampingFactor={0.08}
+      minPolarAngle={0.1}
+      maxPolarAngle={Math.PI / 2 - 0.02}
+      minDistance={MIN_DISTANCE}
+      maxDistance={MAX_DISTANCE}
+      rotateSpeed={0.9}
+      zoomSpeed={0.9}
+      panSpeed={1.0}
+      // The moment the user grabs the view, stop any automatic flight
+      onStart={() => {
+        isFlying.current = false;
+      }}
     />
   );
 }
@@ -367,7 +402,7 @@ function UndergroundLevel({
 
       {/* 3D Level Label Tag in 3D Space */}
       <Float speed={1.5} rotationIntensity={0} floatIntensity={0.2}>
-        <Html position={[-20, 2.5, -14]} distanceFactor={32} center>
+        <Html position={[-20, 2.5, -14]} center>
           <div
             onClick={(e) => { e.stopPropagation(); onSelect(); }}
             className={`px-3 py-1.5 rounded-xl border font-mono font-bold text-xs shadow-lg transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
@@ -481,7 +516,7 @@ function UndergroundLevel({
             opacity={levelOpacity}
           />
         </mesh>
-        <Html position={[0, 2.2, 0]} distanceFactor={25} center>
+        <Html position={[0, 2.2, 0]} center>
           <div className="px-2 py-0.5 rounded bg-emerald-950/90 text-emerald-400 font-mono text-[9px] font-bold border border-emerald-500 whitespace-nowrap shadow-xs">
             REFUGE #2 (O₂ Safe)
           </div>
@@ -505,7 +540,7 @@ function UndergroundLevel({
           <planeGeometry args={[1.8, 0.6]} />
           <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1} />
         </mesh>
-        <Html position={[0, 1.8, 0]} distanceFactor={25} center>
+        <Html position={[0, 1.8, 0]} center>
           <div className="px-2 py-0.5 rounded bg-sky-950/90 text-sky-300 font-mono text-[9px] font-bold border border-sky-400 whitespace-nowrap shadow-xs">
             SUB-STATION 4 (Sub-GHz)
           </div>
@@ -720,7 +755,7 @@ function Worker3DFigure({
       </mesh>
 
       {/* Drei Floating Circular Avatar Label & Info Badge */}
-      <Html position={[0, 1.8, 0]} distanceFactor={22} center>
+      <Html position={[0, 1.8, 0]} center>
         <div
           onClick={(e) => { e.stopPropagation(); onSelect(); }}
           className={`flex flex-col items-center group cursor-pointer transition-transform ${
@@ -756,9 +791,8 @@ function Worker3DFigure({
 export default function MineMap3D({
   activeLevelIndex,
   is3dStackedView,
-  tilt,
-  rotation,
   zoomScale,
+  resetViewKey,
   workers,
   selectedWorkerId,
   onSelectWorker,
@@ -792,7 +826,7 @@ export default function MineMap3D({
   }, [selectedWorkerId, is3dStackedView]);
 
   return (
-    <div className="w-full h-full relative cursor-grab active:cursor-grabbing select-none bg-slate-950">
+    <div className="w-full h-full relative cursor-grab active:cursor-grabbing select-none touch-none bg-slate-950">
       <Canvas
         shadows
         camera={{ position: [0, 35, 55], fov: 45 }}
@@ -823,9 +857,8 @@ export default function MineMap3D({
         <CameraController
           activeLevelIndex={activeLevelIndex}
           is3dStackedView={is3dStackedView}
-          tilt={tilt}
-          rotation={rotation}
           zoomScale={zoomScale}
+          resetViewKey={resetViewKey}
           selectedWorkerPos={selectedWorkerPos}
         />
 

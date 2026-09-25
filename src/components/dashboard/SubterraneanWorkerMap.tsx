@@ -10,7 +10,9 @@ import {
   Wifi,
   Box,
   Layers3,
-  Layers
+  Layers,
+  RotateCcw,
+  Hand
 } from 'lucide-react';
 import Card from '@/components/ui/Card';
 import Avatar from '@/components/ui/Avatar';
@@ -44,9 +46,8 @@ export default function SubterraneanWorkerMap({
 
   const [activeLevelIndex, setActiveLevelIndex] = useState<number>(3); // Default Level 3 (-320m)
   const [is3dStackedView, setIs3dStackedView] = useState<boolean>(false);
-  const [rotateY, setRotateY] = useState<number>(0);
-  const [tiltX, setTiltX] = useState<number>(45);
   const [zoomScale, setZoomScale] = useState<number>(1);
+  const [resetViewKey, setResetViewKey] = useState<number>(0);
   const [selectedPin, setSelectedPin] = useState<string | null>(null);
 
   const levelDetails = [
@@ -103,8 +104,8 @@ export default function SubterraneanWorkerMap({
       {/* 3D Interactive Subterranean Canvas Area */}
       <div className="relative w-full h-[580px] bg-slate-950 p-4 flex flex-col justify-between overflow-hidden">
         
-        {/* Top View Controls & Active Depth Focus */}
-        <div className="flex items-center justify-between z-30 pointer-events-auto">
+        {/* Top View Controls & Active Depth Focus (gaps between pills let drags reach the map) */}
+        <div className="flex flex-wrap items-center justify-between gap-2 z-30 pointer-events-none [&>*]:pointer-events-auto">
           {/* Active Depth Focus Pill */}
           <div className="flex items-center gap-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-900 shadow-md">
             <Compass className="w-4 h-4 text-sky-600" />
@@ -126,27 +127,18 @@ export default function SubterraneanWorkerMap({
               <span>{is3dStackedView ? 'Realistic Cutaway' : '3D Stacked View'}</span>
             </button>
 
-            {/* Tilt / Rotate Sliders */}
-            <div className="hidden sm:flex items-center gap-2 px-2 border-l border-slate-200 text-[11px] font-mono text-slate-600">
-              <span>Tilt:</span>
-              <input
-                type="range"
-                min="15"
-                max="85"
-                value={tiltX}
-                onChange={(e) => setTiltX(Number(e.target.value))}
-                className="w-16 accent-sky-600 cursor-pointer"
-              />
-              <span>Rotate:</span>
-              <input
-                type="range"
-                min="-180"
-                max="180"
-                value={rotateY}
-                onChange={(e) => setRotateY(Number(e.target.value))}
-                className="w-16 accent-sky-600 cursor-pointer"
-              />
-            </div>
+            {/* Reset camera to the default angle */}
+            <button
+              onClick={() => {
+                setZoomScale(1);
+                setResetViewKey((k) => k + 1);
+              }}
+              className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer transition-colors"
+              title="Reset View"
+              aria-label="Reset View"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+            </button>
 
             {/* Zoom Controls */}
             <button
@@ -171,14 +163,20 @@ export default function SubterraneanWorkerMap({
           <MineMap3D
             activeLevelIndex={activeLevelIndex}
             is3dStackedView={is3dStackedView}
-            tilt={tiltX}
-            rotation={rotateY}
             zoomScale={zoomScale}
+            resetViewKey={resetViewKey}
             workers={displayedWorkers}
             selectedWorkerId={selectedPin}
             onSelectWorker={(id) => setSelectedPin(id)}
             onSelectLevel={(lvlIdx) => setActiveLevelIndex(lvlIdx)}
           />
+        </div>
+
+        {/* How to move the view */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-24 sm:bottom-20 z-20 pointer-events-none flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/70 backdrop-blur-sm border border-white/10 text-[11px] font-semibold text-slate-200 whitespace-nowrap">
+          <Hand className="w-3.5 h-3.5 text-sky-300" />
+          <span className="hidden sm:inline">Drag to rotate &amp; tilt · Scroll to zoom · Right-drag to pan</span>
+          <span className="sm:hidden">Drag to rotate · Pinch to zoom</span>
         </div>
 
         {/* Selected Worker Info Overlay Card */}
