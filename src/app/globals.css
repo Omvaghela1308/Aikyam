@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #0284C7;
+  --primary-hover: #0369A1;
+  --accent: #0EA5E9;
+  --soft-blue: #E0F2FE;
+  --mine-border: #E3EAF5;
+  --mine-canvas: #EEF3FA;
+  --heading: #0F172A;
+  --muted: #475569;
+
+  --safe: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  --pastel-blue-bg: #E0F2FE;
+  --pastel-blue-text: #0369A1;
+  --pastel-peach-bg: #FFEDD5;
+  --pastel-peach-text: #C2410C;
+  --pastel-yellow-bg: #FEF9C3;
+  --pastel-yellow-text: #A16207;
+  --pastel-green-bg: #DCFCE7;
+  --pastel-green-text: #15803D;
+  --pastel-lavender-bg: #F3E8FF;
+  --pastel-lavender-text: #7E22CE;
+}
+
+@theme {
+  --color-primary: #0284C7;
+  --color-primary-hover: #0369A1;
+  --color-accent: #0EA5E9;
+  --color-soft-blue: #E0F2FE;
+  --color-mine-border: #E3EAF5;
+  --color-mine-canvas: #EEF3FA;
+  --color-heading: #0F172A;
+  --color-muted: #475569;
+
+  --color-safe: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+
+  --font-inter: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background-color: #EEF3FA;
+  color: #0F172A;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Scrollbar for sleek UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* 3D Glassmorphism & Depth Utilities */
+.btn-3d {
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 22px rgba(2, 132, 199, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-3d:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-3d-glow {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 
+    0 10px 30px -5px rgba(15, 23, 42, 0.08),
+    0 4px 12px -2px rgba(2, 132, 199, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(15, 23, 42, 0.02);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-3d-glow:hover {
+  transform: translateY(-4px) perspective(1000px) rotateX(1deg) rotateY(-0.5deg);
+  box-shadow: 
+    0 22px 45px -10px rgba(2, 132, 199, 0.18),
+    0 8px 18px -4px rgba(15, 23, 42, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  border-color: #7DD3FC;
+}
+
+/* Floating content panel shadow with 3D elevation */
+.floating-panel {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  box-shadow: 
+    0 12px 32px -6px rgba(15, 23, 42, 0.09),
+    0 4px 14px -2px rgba(2, 132, 199, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.floating-panel:hover {
+  transform: translateY(-4px) scale(1.002);
+  box-shadow: 
+    0 24px 48px -10px rgba(2, 132, 199, 0.18),
+    0 8px 20px -4px rgba(15, 23, 42, 0.1),
+    inset 0 1.5px 0 rgba(255, 255, 255, 1);
+  border-color: #BAE6FD;
+}
+
+/* 3D Design Card Utility */
+.mine-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  border: 1px solid #E2E8F0;
+  border-radius: 22px;
+  box-shadow: 
+    0 10px 28px rgba(15, 23, 42, 0.06),
+    0 2px 6px rgba(2, 132, 199, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Universal 3D Perspective & Motion Animations for Whole Website */
+@keyframes floatAmbient {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-float-3d {
+  animation: floatAmbient 6s ease-in-out infinite;
+}
+
+/* Scope 3D Hover Elevation strictly to Small Metric / Sensor Sub-Boxes */
+div[class*="rounded-2xl"][class*="bg-sky-50"]:hover,
+div[class*="rounded-2xl"][class*="bg-emerald-50"]:hover,
+div[class*="rounded-2xl"][class*="bg-rose-50"]:hover,
+div[class*="rounded-2xl"][class*="bg-amber-50"]:hover,
+div[class*="rounded-2xl"][class*="bg-purple-50"]:hover,
+div[class*="rounded-2xl"][class*="bg-indigo-50"]:hover,
+div[class*="rounded-xl"][class*="bg-gradient-to-b"]:hover,
+div[class*="rounded-2xl"][class*="border"][class*="p-4"]:hover,
+div[class*="rounded-2xl"][class*="border"][class*="p-3"]:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 16px 32px -6px rgba(15, 23, 42, 0.12),
+    0 6px 14px -2px rgba(2, 132, 199, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: rgba(56, 189, 248, 0.7) !important;
+}
+
+/* Continuous Emergency Modal Floating, Breathing & Glowing Animation */
+@keyframes emergencyModalFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    box-shadow: 0 0 45px rgba(239, 68, 68, 0.45), 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    border-color: #ef4444;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.015);
+    box-shadow: 0 0 80px rgba(239, 68, 68, 0.8), 0 35px 60px -10px rgba(239, 68, 68, 0.45);
+    border-color: #dc2626;
+  }
+}
+
+@keyframes emergencyStrobeBackdrop {
+  0%, 100% {
+    background-color: rgba(10, 15, 30, 0.88);
+  }
+  50% {
+    background-color: rgba(69, 10, 10, 0.85);
+  }
+}
+
+@keyframes emergencyCardHoverPulse {
+  0%, 100% {
+    transform: translateY(0px);
+    border-color: rgba(252, 165, 165, 0.7);
+  }
+  50% {
+    transform: translateY(-3.5px);
+    border-color: rgba(239, 68, 68, 0.95);
+  }
+}
+
+.animate-emergency-modal {
+  animation: emergencyModalFloat 2.8s ease-in-out infinite;
+}
+
+.animate-emergency-backdrop {
+  animation: emergencyStrobeBackdrop 2.5s ease-in-out infinite;
+}
+
+.animate-emergency-card-float-1 {
+  animation: emergencyCardHoverPulse 2.8s ease-in-out infinite;
+}
+.animate-emergency-card-float-2 {
+  animation: emergencyCardHoverPulse 2.8s ease-in-out 0.4s infinite;
+}
+.animate-emergency-card-float-3 {
+  animation: emergencyCardHoverPulse 2.8s ease-in-out 0.8s infinite;
+}
+.animate-emergency-card-float-4 {
+  animation: emergencyCardHoverPulse 2.8s ease-in-out 1.2s infinite;
+}
+
+/* Hide Next.js dev indicator badge */
+nextjs-portal,
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay] {
+  display: none !important;
+}
