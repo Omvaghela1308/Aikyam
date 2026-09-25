@@ -63,16 +63,6 @@ export default function HomePage() {
       {/* If Worker role, display logged-in worker's personal telemetry & 24h shift analysis */}
       {role === 'Worker' ? (
         <div className="space-y-6">
-          {/* Worker Personal Header Banner */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-gradient-to-r from-sky-50 via-slate-50 to-emerald-50 rounded-3xl border border-[#BAE6FD]/60 shadow-xs">
-            <div className="flex items-center gap-4">
-              <Avatar name={myWorker.name} role={myWorker.role} size="lg" status={myWorker.status === 'online' ? 'safe' : myWorker.status === 'critical' ? 'danger' : 'warning'} />
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight">Home</h1>
-              </div>
-            </div>
-          </div>
-
           {/* Personal Smart Jacket Telemetry Sensors Grid */}
           <div className="bg-white rounded-3xl p-6 border border-[#E3EAF5] shadow-sm space-y-6">
             <div className="flex items-center justify-between border-b border-[#F1F5F9] pb-4">
