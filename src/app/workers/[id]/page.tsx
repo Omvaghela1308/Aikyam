@@ -78,7 +78,7 @@ export default function WorkerDetailPage({ params }: PageProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
         <Link
           href="/workers"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#0284C7] hover:underline"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#D97706] hover:underline"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Live Workers</span>
@@ -103,7 +103,7 @@ export default function WorkerDetailPage({ params }: PageProps) {
       </div>
 
       {/* Miner Header Card */}
-      <Card variant="flat" padding="lg" className="bg-gradient-to-r from-[#F0F7FF] via-white to-[#F0F9FF] border-[#BAE6FD]">
+      <Card variant="flat" padding="lg" className="bg-gradient-to-r from-[#FFFBEB] via-white to-[#FFFBEB] border-[#FDE68A]">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <Avatar
@@ -117,16 +117,16 @@ export default function WorkerDetailPage({ params }: PageProps) {
                 <h1 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight">
                   {worker.name}
                 </h1>
-                <span className="font-mono text-xs font-bold text-[#0284C7] bg-white px-2 py-0.5 rounded-full border border-[#BAE6FD] shadow-2xs">
+                <span className="font-mono text-xs font-bold text-[#D97706] bg-white px-2 py-0.5 rounded-full border border-[#FDE68A] shadow-2xs">
                   {worker.id}
                 </span>
                 <span className="font-mono text-xs font-bold text-[#475569] bg-[#F8FAFC] px-2 py-0.5 rounded-full border border-[#E2E8F0]">
                   {worker.jacketId}
                 </span>
               </div>
-              <p className="text-sm font-semibold text-[#0284C7] mt-0.5">{worker.role}</p>
+              <p className="text-sm font-semibold text-[#D97706] mt-0.5">{worker.role}</p>
               <p className="text-xs text-[#64748B] flex items-center gap-1 mt-1">
-                <MapPin className="w-3.5 h-3.5 text-[#0284C7]" />
+                <MapPin className="w-3.5 h-3.5 text-[#D97706]" />
                 {worker.zone} • UWB Coordinates: ({worker.uwbX}m, {worker.uwbY}m)
               </p>
             </div>
@@ -134,15 +134,15 @@ export default function WorkerDetailPage({ params }: PageProps) {
 
           {/* Quick Jacket Hardware Badges */}
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <div className="bg-white px-3 py-1.5 rounded-2xl border border-[#E3EAF5] shadow-2xs">
+            <div className="bg-white px-3 py-1.5 rounded-2xl border border-[#EDE4D6] shadow-2xs">
               <span className="text-[10px] text-[#64748B] uppercase block">ESP32 Core</span>
               <span className="font-mono font-bold text-[#0F172A]">WROOM-32E</span>
             </div>
-            <div className="bg-white px-3 py-1.5 rounded-2xl border border-[#E3EAF5] shadow-2xs">
+            <div className="bg-white px-3 py-1.5 rounded-2xl border border-[#EDE4D6] shadow-2xs">
               <span className="text-[10px] text-[#64748B] uppercase block">LoRa Node</span>
-              <span className="font-mono font-bold text-[#0284C7]">{worker.loraRSSI} dBm</span>
+              <span className="font-mono font-bold text-[#D97706]">{worker.loraRSSI} dBm</span>
             </div>
-            <div className="bg-white px-3 py-1.5 rounded-2xl border border-[#E3EAF5] shadow-2xs">
+            <div className="bg-white px-3 py-1.5 rounded-2xl border border-[#EDE4D6] shadow-2xs">
               <span className="text-[10px] text-[#64748B] uppercase block">Battery LiFePO4</span>
               <span className="font-mono font-bold text-emerald-600">{worker.battery}%</span>
             </div>
@@ -153,10 +153,10 @@ export default function WorkerDetailPage({ params }: PageProps) {
       {/* Real-time Hardware Readings Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {/* H2S SPEC */}
-        <Card variant="flat" padding="sm" className="bg-[#F0F7FF] border-[#BAE6FD]">
-          <span className="text-[10px] font-bold text-[#0284C7] uppercase">H2S Electronic</span>
+        <Card variant="flat" padding="sm" className="bg-[#FFFBEB] border-[#FDE68A]">
+          <span className="text-[10px] font-bold text-[#D97706] uppercase">H2S Electronic</span>
           <div className="mt-1 flex items-baseline gap-1">
-            <span className={`text-2xl font-black font-mono ${worker.h2s > 10 ? 'text-rose-600' : worker.h2s >= 5 ? 'text-amber-600' : 'text-[#0284C7]'}`}>
+            <span className={`text-2xl font-black font-mono ${worker.h2s > 10 ? 'text-rose-600' : worker.h2s >= 5 ? 'text-amber-600' : 'text-[#D97706]'}`}>
               {worker.h2s.toFixed(1)}
             </span>
             <span className="text-[10px] text-[#64748B]">ppm</span>
@@ -229,7 +229,7 @@ export default function WorkerDetailPage({ params }: PageProps) {
           <div className="flex items-center justify-between mb-4">
             <div>
               <div className="flex items-center gap-2">
-                <div className="w-1.5 h-5 bg-[#0284C7] rounded-full" />
+                <div className="w-1.5 h-5 bg-[#D97706] rounded-full" />
                 <h2 className="text-base font-bold text-[#0F172A]">
                   H2S Toxic Gas Exposure — Last 1 Hour
                 </h2>
@@ -239,7 +239,7 @@ export default function WorkerDetailPage({ params }: PageProps) {
               </p>
             </div>
 
-            <span className="text-[10px] font-mono font-bold bg-[#E0F2FE] text-[#0284C7] px-2 py-0.5 rounded-full">
+            <span className="text-[10px] font-mono font-bold bg-[#FEF3C7] text-[#D97706] px-2 py-0.5 rounded-full">
               Ceiling: 10.0 ppm
             </span>
           </div>
@@ -249,18 +249,18 @@ export default function WorkerDetailPage({ params }: PageProps) {
               <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="h2sGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#0284C7" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#0284C7" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#D97706" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#D97706" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E3EAF5" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#EDE4D6" />
                 <XAxis dataKey="time" stroke="#64748B" fontSize={11} tickLine={false} />
                 <YAxis stroke="#64748B" fontSize={11} domain={[0, 15]} tickLine={false} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: '#FFFFFF',
                     borderRadius: '16px',
-                    border: '1px solid #BAE6FD',
+                    border: '1px solid #FDE68A',
                     boxShadow: '0 4px 16px rgba(15,23,42,0.08)',
                     fontSize: '12px',
                   }}
@@ -269,7 +269,7 @@ export default function WorkerDetailPage({ params }: PageProps) {
                 <Area
                   type="monotone"
                   dataKey="h2s"
-                  stroke="#0284C7"
+                  stroke="#D97706"
                   strokeWidth={2.5}
                   fillOpacity={1}
                   fill="url(#h2sGradient)"
@@ -278,7 +278,7 @@ export default function WorkerDetailPage({ params }: PageProps) {
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-3 flex items-center justify-between text-xs text-[#64748B] pt-2 border-t border-[#E3EAF5]">
+          <div className="mt-3 flex items-center justify-between text-xs text-[#64748B] pt-2 border-t border-[#EDE4D6]">
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500" /> Safe (&lt; 5 ppm)
             </span>
@@ -314,7 +314,7 @@ export default function WorkerDetailPage({ params }: PageProps) {
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E3EAF5" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#EDE4D6" />
                 <XAxis dataKey="time" stroke="#64748B" fontSize={11} tickLine={false} />
                 <YAxis stroke="#64748B" fontSize={11} domain={[50, 150]} tickLine={false} />
                 <Tooltip
@@ -339,7 +339,7 @@ export default function WorkerDetailPage({ params }: PageProps) {
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-3 flex items-center justify-between text-xs text-[#64748B] pt-2 border-t border-[#E3EAF5]">
+          <div className="mt-3 flex items-center justify-between text-xs text-[#64748B] pt-2 border-t border-[#EDE4D6]">
             <span>Average: {worker.heartRate} bpm</span>
             <span>Peak: {Math.max(...chartData.map((d) => d.heartRate))} bpm</span>
             <span>Min: {Math.min(...chartData.map((d) => d.heartRate))} bpm</span>
@@ -351,8 +351,8 @@ export default function WorkerDetailPage({ params }: PageProps) {
       <Card variant="flat" padding="md" className="bg-[#F8FAFC]">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#E0F2FE] flex items-center justify-center flex-shrink-0">
-              <Camera className="w-5 h-5 text-[#0284C7]" />
+            <div className="w-10 h-10 rounded-2xl bg-[#FEF3C7] flex items-center justify-center flex-shrink-0">
+              <Camera className="w-5 h-5 text-[#D97706]" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-[#0F172A]">

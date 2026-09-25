@@ -54,7 +54,7 @@ export function Sidebar({
       role: 'Supervisor',
       title: 'Rescuer',
       subtitle: 'Rescue Command Center',
-      icon: <HardHat className="w-4 h-4 text-[#0284C7]" />,
+      icon: <HardHat className="w-4 h-4 text-[#D97706]" />,
     },
     {
       role: 'Worker',
@@ -68,17 +68,17 @@ export function Sidebar({
     {
       title: 'Home',
       href: '/dashboard',
-      icon: <Home className="w-5 h-5 text-[#0284C7]" />,
+      icon: <Home className="w-5 h-5 text-[#D97706]" />,
     },
     {
       title: 'Worker Map',
       href: '/map',
-      icon: <MapPin className="w-5 h-5 text-indigo-600" />,
+      icon: <MapPin className="w-5 h-5 text-orange-600" />,
     },
     {
       title: 'Daily Analysis',
       href: '/analysis',
-      icon: <BarChart2 className="w-5 h-5 text-[#0284C7]" />,
+      icon: <BarChart2 className="w-5 h-5 text-[#D97706]" />,
     },
   ];
 
@@ -119,7 +119,7 @@ export function Sidebar({
       {/* Sidebar Container */}
       <aside
         className={`
-          fixed top-0 bottom-0 left-0 z-50 flex flex-col bg-white border-r border-[#E3EAF5]
+          fixed top-0 bottom-0 left-0 z-50 flex flex-col bg-white border-r border-[#EDE4D6]
           transition-all duration-300 ease-in-out
           ${collapsed ? 'w-20' : 'w-72'}
           ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -128,7 +128,7 @@ export function Sidebar({
         {/* Brand Header */}
         {/* Collapsed rail is too narrow for logo + toggle side by side, so they stack */}
         <div
-          className={`h-20 flex border-b border-[#E3EAF5]/80 ${
+          className={`h-20 flex border-b border-[#EDE4D6]/80 ${
             collapsed
               ? 'flex-col items-center justify-center gap-1 px-2'
               : 'items-center justify-between px-4'
@@ -138,7 +138,7 @@ export function Sidebar({
           <div className="flex items-center gap-3 overflow-hidden select-none">
             {/* MineGuard SVG Logo */}
             <div
-              className={`rounded-2xl bg-gradient-to-br from-[#0284C7] to-[#0EA5E9] flex items-center justify-center shadow-md shadow-sky-500/20 flex-shrink-0 ${
+              className={`rounded-2xl bg-gradient-to-br from-[#D97706] to-[#F59E0B] flex items-center justify-center shadow-md shadow-amber-500/20 flex-shrink-0 ${
                 collapsed ? 'w-9 h-9 p-1.5' : 'w-10 h-10 p-2'
               }`}
             >
@@ -161,7 +161,7 @@ export function Sidebar({
             {!collapsed && (
               <div className="flex flex-col min-w-0">
                 <span className="text-xl font-black tracking-tight text-[#0F172A] leading-tight">
-                  Mine<span className="text-[#0284C7]">Guard</span>
+                  Mine<span className="text-[#D97706]">Guard</span>
                 </span>
                 <span className="text-[10px] font-semibold text-[#64748B] tracking-wider uppercase truncate">
                   Sense. Connect. Protect.
@@ -173,7 +173,7 @@ export function Sidebar({
           {/* Desktop Collapse Button */}
           <button
             onClick={onToggleCollapse}
-            className="hidden lg:flex flex-shrink-0 p-1 rounded-lg text-[#64748B] hover:text-[#0284C7] hover:bg-[#F1F5F9] transition-colors cursor-pointer"
+            className="hidden lg:flex flex-shrink-0 p-1 rounded-lg text-[#64748B] hover:text-[#D97706] hover:bg-[#F1F5F9] transition-colors cursor-pointer"
             title={collapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
           >
             {collapsed ? <ChevronsRight className="w-5 h-5" /> : <ChevronsLeft className="w-5 h-5" />}
@@ -182,7 +182,7 @@ export function Sidebar({
           {/* Mobile Close Button */}
           <button
             onClick={onCloseMobile}
-            className="lg:hidden p-1.5 rounded-lg text-[#64748B] hover:text-[#0284C7] hover:bg-[#F1F5F9]"
+            className="lg:hidden p-1.5 rounded-lg text-[#64748B] hover:text-[#D97706] hover:bg-[#F1F5F9]"
           >
             <X className="w-5 h-5" />
           </button>
@@ -191,7 +191,7 @@ export function Sidebar({
         {/* Account Profile Card */}
         <div className="px-3 pt-3 pb-2">
           {!collapsed ? (
-            <div className="bg-[#F0F7FF] border border-[#BAE6FD] rounded-2xl p-3">
+            <div className="bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl p-3">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">
                   Signed In Account
@@ -201,8 +201,8 @@ export function Sidebar({
                 </span>
               </div>
 
-              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-[#BAE6FD]/80 shadow-2xs">
-                <div className="w-8 h-8 rounded-full bg-[#E0F2FE] flex items-center justify-center font-bold text-[#0284C7] text-xs flex-shrink-0">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-[#FDE68A]/80 shadow-2xs">
+                <div className="w-8 h-8 rounded-full bg-[#FEF3C7] flex items-center justify-center font-bold text-[#D97706] text-xs flex-shrink-0">
                   {currentUser.name.charAt(0)}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -220,7 +220,7 @@ export function Sidebar({
             <div className="flex justify-center">
               <button
                 onClick={openLoginModal}
-                className="w-10 h-10 rounded-2xl bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center border border-[#BAE6FD] hover:scale-105 transition-transform cursor-pointer"
+                className="w-10 h-10 rounded-2xl bg-[#FEF3C7] text-[#D97706] flex items-center justify-center border border-[#FDE68A] hover:scale-105 transition-transform cursor-pointer"
                 title={`Logged in: ${currentUser.name} (${role})`}
               >
                 <LogIn className="w-5 h-5" />
@@ -244,13 +244,13 @@ export function Sidebar({
                   flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-all duration-150 group
                   ${
                     active
-                      ? 'bg-[#E0F2FE] text-[#0284C7] font-semibold shadow-2xs'
-                      : 'text-[#475569] hover:text-[#0284C7] hover:bg-[#F8FAFC]'
+                      ? 'bg-[#FEF3C7] text-[#D97706] font-semibold shadow-2xs'
+                      : 'text-[#475569] hover:text-[#D97706] hover:bg-[#F8FAFC]'
                   }
                   ${collapsed ? 'justify-center px-0' : ''}
                 `}
               >
-                <span className={`transition-colors ${active ? 'text-[#0284C7]' : 'group-hover:text-[#0284C7]'}`}>
+                <span className={`transition-colors ${active ? 'text-[#D97706]' : 'group-hover:text-[#D97706]'}`}>
                   {item.icon}
                 </span>
 
@@ -295,13 +295,13 @@ export function Sidebar({
                   flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-all duration-150 group
                   ${
                     active
-                      ? 'bg-[#E0F2FE] text-[#0284C7] font-semibold shadow-2xs'
-                      : 'text-[#475569] hover:text-[#0284C7] hover:bg-[#F8FAFC]'
+                      ? 'bg-[#FEF3C7] text-[#D97706] font-semibold shadow-2xs'
+                      : 'text-[#475569] hover:text-[#D97706] hover:bg-[#F8FAFC]'
                   }
                   ${collapsed ? 'justify-center px-0' : ''}
                 `}
               >
-                <span className={`transition-colors ${active ? 'text-[#0284C7]' : 'group-hover:text-[#0284C7]'}`}>
+                <span className={`transition-colors ${active ? 'text-[#D97706]' : 'group-hover:text-[#D97706]'}`}>
                   {item.icon}
                 </span>
 
@@ -314,7 +314,7 @@ export function Sidebar({
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="p-3 border-t border-[#E3EAF5]/80">
+        <div className="p-3 border-t border-[#EDE4D6]/80">
           <button
             type="button"
             onClick={logout}

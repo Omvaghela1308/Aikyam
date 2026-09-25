@@ -66,7 +66,7 @@ function SensorsContent() {
       interface: 'Amperometric Ultra-Low Power I2C',
       pins: 'SDA, SCL, 3.3V, GND (A/D 16-bit)',
       range: '0.01 - 50.0 ppm (Ceiling: 10 ppm)',
-      color: '#0284C7',
+      color: '#D97706',
       trend: [
         { time: 'T-15', val: 2.1 },
         { time: 'T-10', val: 4.8 },
@@ -85,7 +85,7 @@ function SensorsContent() {
       interface: 'DVP 8-bit Parallel / SCCB Interface',
       pins: 'D0-D7, PCLK, VSYNC, HREF, XCLK, 3.3V',
       range: 'Color delta E > 15 = Positive H2S Confirmation',
-      color: '#0EA5E9',
+      color: '#F59E0B',
       trend: [
         { time: 'T-15', val: 5 },
         { time: 'T-10', val: 12 },
@@ -199,7 +199,7 @@ function SensorsContent() {
       interface: 'SPI Bus with DIO0 Packet Interrupt',
       pins: 'SCK, MISO, MOSI, NSS, DIO0, RST, 3.3V',
       range: 'Up to 3.5 km subterranean multi-hop gallery',
-      color: '#0284C7',
+      color: '#D97706',
       trend: [
         { time: 'T-15', val: -76 },
         { time: 'T-10', val: -74 },
@@ -256,7 +256,7 @@ function SensorsContent() {
       interface: 'Integrated 1-Wire DS18B20 Core Probe',
       pins: 'Direct Body Contact Ergonomic Pockets',
       range: 'Endothermic heat absorption 245 kJ/kg',
-      color: '#0EA5E9',
+      color: '#F59E0B',
       trend: [
         { time: 'T-15', val: 18 },
         { time: 'T-10', val: 19 },
@@ -306,19 +306,19 @@ function SensorsContent() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight">
-            Certified Hardware <span className="text-[#0284C7]">Sensors & Telemetry</span>
+            Certified Hardware <span className="text-[#D97706]">Sensors & Telemetry</span>
           </h1>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-[#0284C7] bg-[#E0F2FE] border border-[#BAE6FD] px-3 py-1.5 rounded-full font-semibold">
+          <span className="text-xs font-mono text-[#D97706] bg-[#FEF3C7] border border-[#FDE68A] px-3 py-1.5 rounded-full font-semibold">
             ● ESP32 Hardware Bus: OK
           </span>
         </div>
       </div>
 
       {/* Sensor Filter Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#E3EAF5]">
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#EDE4D6]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -327,8 +327,8 @@ function SensorsContent() {
               flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap
               ${
                 activeTab === tab.id
-                  ? 'bg-[#0284C7] text-white shadow-sm'
-                  : 'bg-white text-[#475569] border border-[#E3EAF5] hover:bg-[#F8FAFC]'
+                  ? 'bg-[#D97706] text-white shadow-sm'
+                  : 'bg-white text-[#475569] border border-[#EDE4D6] hover:bg-[#F8FAFC]'
               }
             `}
           >
@@ -346,7 +346,7 @@ function SensorsContent() {
               {/* Header: Name and Status */}
               <div className="flex items-start justify-between gap-2 mb-2">
                 <div>
-                  <span className="font-mono text-xs font-black text-[#0284C7] bg-[#E0F2FE] px-2 py-0.5 rounded-md border border-[#BAE6FD]">
+                  <span className="font-mono text-xs font-black text-[#D97706] bg-[#FEF3C7] px-2 py-0.5 rounded-md border border-[#FDE68A]">
                     {hw.model}
                   </span>
                   <h3 className="text-base font-bold text-[#0F172A] mt-2">
@@ -376,7 +376,7 @@ function SensorsContent() {
               </div>
 
               {/* Mini Sparkline Chart (Recharts) */}
-              <div className="mt-4 h-20 w-full bg-[#F8FAFC] rounded-xl p-1 border border-[#E3EAF5]">
+              <div className="mt-4 h-20 w-full bg-[#F8FAFC] rounded-xl p-1 border border-[#EDE4D6]">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={hw.trend} margin={{ top: 5, right: 5, left: 5, bottom: 0 }}>
                     <defs>
@@ -389,7 +389,7 @@ function SensorsContent() {
                       contentStyle={{
                         backgroundColor: '#FFFFFF',
                         borderRadius: '12px',
-                        border: '1px solid #E3EAF5',
+                        border: '1px solid #EDE4D6',
                         fontSize: '10px',
                         padding: '4px 8px',
                       }}
@@ -407,7 +407,7 @@ function SensorsContent() {
               </div>
 
               {/* Hardware Specifications */}
-              <div className="mt-4 pt-3 border-t border-[#E3EAF5] space-y-1.5 text-xs text-[#64748B]">
+              <div className="mt-4 pt-3 border-t border-[#EDE4D6] space-y-1.5 text-xs text-[#64748B]">
                 <div className="flex justify-between items-start gap-2">
                   <span className="text-[11px] font-medium text-[#475569]">Protocol</span>
                   <span className="font-mono text-[11px] text-[#0F172A] font-semibold text-right">{hw.interface}</span>
@@ -418,12 +418,12 @@ function SensorsContent() {
                 </div>
                 <div className="flex justify-between items-start gap-2">
                   <span className="text-[11px] font-medium text-[#475569]">Operating Limits</span>
-                  <span className="font-mono text-[10px] text-[#0284C7] font-semibold text-right">{hw.range}</span>
+                  <span className="font-mono text-[10px] text-[#D97706] font-semibold text-right">{hw.range}</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-2.5 border-t border-[#E3EAF5] flex items-center justify-between text-[11px]">
+            <div className="mt-4 pt-2.5 border-t border-[#EDE4D6] flex items-center justify-between text-[11px]">
               <span className="text-emerald-600 font-semibold flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5" /> Edge Calibrated
               </span>

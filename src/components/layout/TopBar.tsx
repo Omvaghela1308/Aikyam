@@ -74,7 +74,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
         <div className="flex items-center gap-3 min-w-0 flex-shrink-0 sm:flex-shrink">
           <button
             onClick={onOpenMobile}
-            className="lg:hidden flex-shrink-0 p-2 rounded-xl bg-white text-[#475569] hover:text-[#0284C7] hover:bg-white border border-[#E3EAF5] shadow-2xs"
+            className="lg:hidden flex-shrink-0 p-2 rounded-xl bg-white text-[#475569] hover:text-[#D97706] hover:bg-white border border-[#EDE4D6] shadow-2xs"
             aria-label="Open Navigation Menu"
           >
             <Menu className="w-5 h-5" />
@@ -94,7 +94,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
                   ) : (
                     <Link
                       href={crumb.href}
-                      className="hover:text-[#0284C7] transition-colors truncate"
+                      className="hover:text-[#D97706] transition-colors truncate"
                     >
                       {crumb.label}
                     </Link>
@@ -118,7 +118,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 placeholder="Search workers, jacket IDs, gas sensors..."
-                className="w-full pl-9 pr-14 py-2 bg-white rounded-full text-xs sm:text-sm text-[#0F172A] placeholder-[#94A3B8] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/15 transition-all shadow-2xs"
+                className="w-full pl-9 pr-14 py-2 bg-white rounded-full text-xs sm:text-sm text-[#0F172A] placeholder-[#94A3B8] border border-[#EDE4D6] focus:outline-none focus:border-[#D97706] focus:ring-2 focus:ring-[#D97706]/15 transition-all shadow-2xs"
               />
               <span className="hidden md:inline-flex absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#F1F5F9] text-[#64748B] border border-[#E2E8F0]">
                 Ctrl K
@@ -136,7 +136,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
             <button
               type="button"
               onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-              className="sm:hidden p-2.5 rounded-full bg-white border border-[#E3EAF5] text-[#475569] hover:text-[#0284C7] transition-all cursor-pointer shadow-2xs"
+              className="sm:hidden p-2.5 rounded-full bg-white border border-[#EDE4D6] text-[#475569] hover:text-[#D97706] transition-all cursor-pointer shadow-2xs"
               aria-label="Search"
               aria-expanded={mobileSearchOpen}
             >
@@ -151,11 +151,11 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-md hover:scale-[1.03] active:scale-[0.97] ${
                 physicalJacket?.isConnected
                   ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border border-emerald-400/50 shadow-emerald-500/25 animate-pulse'
-                  : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white border border-indigo-400/40 shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:from-blue-700 hover:to-violet-700'
+                  : 'bg-gradient-to-r from-amber-600 via-orange-600 to-orange-600 text-white border border-orange-400/40 shadow-orange-500/25 hover:shadow-orange-500/40 hover:from-amber-700 hover:to-orange-700'
               }`}
               title="Connect your physical smart jacket board via Web Serial or Wi-Fi"
             >
-              <Cpu className="w-4 h-4 text-sky-200 animate-pulse" />
+              <Cpu className="w-4 h-4 text-amber-200 animate-pulse" />
               <span className="hidden sm:inline">
                 {physicalJacket?.isConnected ? 'Jacket Connected' : 'Connect with Jacket'}
               </span>
@@ -183,7 +183,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
           <div className="relative">
             <button
               onClick={() => setAlertModalOpen(!alertModalOpen)}
-              className="relative p-2.5 rounded-full bg-white border border-[#E3EAF5] text-[#475569] hover:text-[#0284C7] hover:border-[#BAE6FD] hover:bg-[#F0F7FF] transition-all cursor-pointer shadow-2xs"
+              className="relative p-2.5 rounded-full bg-white border border-[#EDE4D6] text-[#475569] hover:text-[#D97706] hover:border-[#FDE68A] hover:bg-[#FFFBEB] transition-all cursor-pointer shadow-2xs"
               aria-label="Notifications"
             >
               <Bell className="w-4 h-4" />
@@ -196,8 +196,8 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
 
             {/* Quick Alert Dropdown */}
             {alertModalOpen && (
-              <div className="fixed left-3 right-3 top-20 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-80 bg-white rounded-2xl border border-[#E3EAF5] shadow-xl p-3 z-50 animate-in fade-in zoom-in-95 duration-150">
-                <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#E3EAF5]">
+              <div className="fixed left-3 right-3 top-20 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-80 bg-white rounded-2xl border border-[#EDE4D6] shadow-xl p-3 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#EDE4D6]">
                   <span className="text-xs font-bold text-[#0F172A] flex items-center gap-1.5">
                     <AlertTriangle className="w-3.5 h-3.5 text-[#F59E0B]" />
                     Active Safety Alerts ({alerts.length})
@@ -205,7 +205,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
                   <Link
                     href="/alerts"
                     onClick={() => setAlertModalOpen(false)}
-                    className="text-[11px] font-semibold text-[#0284C7] hover:underline"
+                    className="text-[11px] font-semibold text-[#D97706] hover:underline"
                   >
                     View All
                   </Link>
@@ -220,7 +220,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
                           ? 'bg-rose-50 border-rose-100 text-rose-900'
                           : alert.severity === 'warning'
                           ? 'bg-amber-50 border-amber-100 text-amber-900'
-                          : 'bg-sky-50 border-sky-100 text-sky-900'
+                          : 'bg-slate-50 border-slate-200 text-slate-800'
                       }`}
                     >
                       <span
@@ -229,7 +229,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
                             ? 'bg-rose-500 animate-ping'
                             : alert.severity === 'warning'
                             ? 'bg-amber-500'
-                            : 'bg-sky-500'
+                            : 'bg-slate-400'
                         }`}
                       />
                       <div className="flex-1 min-w-0">
@@ -249,16 +249,16 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
           {!isLoggedIn && (
             <button
               onClick={openLoginModal}
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold text-[#0284C7] bg-[#E0F2FE] hover:bg-[#BAE6FD] border border-[#BAE6FD] transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs hover:scale-[1.02] active:scale-[0.98]"
+              className="px-3.5 py-1.5 rounded-full text-xs font-bold text-[#D97706] bg-[#FEF3C7] hover:bg-[#FDE68A] border border-[#FDE68A] transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs hover:scale-[1.02] active:scale-[0.98]"
               title="Sign In or Switch Role"
             >
-              <LogIn className="w-3.5 h-3.5 text-[#0284C7]" />
+              <LogIn className="w-3.5 h-3.5 text-[#D97706]" />
               <span>Sign In / Login</span>
             </button>
           )}
 
           {/* User Profile initials Avatar */}
-          <div className="flex items-center gap-1 sm:gap-2 pl-1.5 sm:pl-2 border-l border-[#E3EAF5]">
+          <div className="flex items-center gap-1 sm:gap-2 pl-1.5 sm:pl-2 border-l border-[#EDE4D6]">
             <Avatar
               name={currentUser.name}
               role={role}
@@ -299,7 +299,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder="Search workers, jacket IDs..."
               autoFocus
-              className="w-full pl-9 pr-4 py-2.5 bg-white rounded-full text-sm text-[#0F172A] placeholder-[#94A3B8] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/15 transition-all shadow-2xs"
+              className="w-full pl-9 pr-4 py-2.5 bg-white rounded-full text-sm text-[#0F172A] placeholder-[#94A3B8] border border-[#EDE4D6] focus:outline-none focus:border-[#D97706] focus:ring-2 focus:ring-[#D97706]/15 transition-all shadow-2xs"
             />
           </div>
         </div>

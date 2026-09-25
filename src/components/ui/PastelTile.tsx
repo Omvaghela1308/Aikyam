@@ -27,12 +27,12 @@ const colorStyles: Record<
   }
 > = {
   blue: {
-    bg: 'bg-[#E0F2FE]/70 hover:bg-[#E0F2FE]',
-    border: 'border-[#BAE6FD]',
-    text: 'text-[#0369A1]',
+    bg: 'bg-[#FEF3C7]/70 hover:bg-[#FEF3C7]',
+    border: 'border-[#FDE68A]',
+    text: 'text-[#B45309]',
     badgeBg: 'bg-white/80',
-    badgeText: 'text-[#0284C7]',
-    iconBg: 'bg-white text-[#0284C7]',
+    badgeText: 'text-[#D97706]',
+    iconBg: 'bg-white text-[#D97706]',
   },
   peach: {
     bg: 'bg-[#FFEDD5]/70 hover:bg-[#FFEDD5]',

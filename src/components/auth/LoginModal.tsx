@@ -36,9 +36,9 @@ export default function LoginModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-[#BAE6FD] overflow-hidden">
+      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-[#FDE68A] overflow-hidden">
         {/* Header Banner */}
-        <div className="bg-gradient-to-r from-[#0284C7] to-[#0EA5E9] p-6 text-white text-center relative">
+        <div className="bg-gradient-to-r from-[#D97706] to-[#F59E0B] p-6 text-white text-center relative">
           <button
             onClick={closeLoginModal}
             className="absolute right-4 top-4 p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
@@ -51,7 +51,7 @@ export default function LoginModal() {
           </div>
 
           <h2 className="text-2xl font-black tracking-tight">MineGuard Sign In</h2>
-          <p className="text-xs text-sky-100 mt-1 font-medium">
+          <p className="text-xs text-amber-100 mt-1 font-medium">
             Enter your credentials to access safety telemetry
           </p>
         </div>
@@ -63,17 +63,17 @@ export default function LoginModal() {
             <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-2">
               Select Account Role
             </label>
-            <div className="grid grid-cols-2 gap-2 p-1 bg-[#F0F7FF] rounded-2xl border border-[#BAE6FD]">
+            <div className="grid grid-cols-2 gap-2 p-1 bg-[#FFFBEB] rounded-2xl border border-[#FDE68A]">
               <button
                 type="button"
                 onClick={() => handleRoleSelect('Supervisor')}
                 className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   selectedRole === 'Supervisor'
-                    ? 'bg-white text-[#0284C7] shadow-sm border border-[#BAE6FD]'
+                    ? 'bg-white text-[#D97706] shadow-sm border border-[#FDE68A]'
                     : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
               >
-                <HardHat className="w-4 h-4 text-[#0284C7]" />
+                <HardHat className="w-4 h-4 text-[#D97706]" />
                 <span>Rescuer</span>
               </button>
 
@@ -104,7 +104,7 @@ export default function LoginModal() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder={selectedRole === 'Worker' ? 'e.g. W1026 or SJ-003' : 'e.g. RSC-01'}
-                className="w-full pl-10 pr-4 py-2.5 bg-[#F8FAFC] rounded-2xl text-xs font-medium text-[#0F172A] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] focus:bg-white shadow-2xs transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#F8FAFC] rounded-2xl text-xs font-medium text-[#0F172A] border border-[#EDE4D6] focus:outline-none focus:border-[#D97706] focus:bg-white shadow-2xs transition-colors"
               />
             </div>
           </div>
@@ -121,25 +121,25 @@ export default function LoginModal() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter passcode"
-                className="w-full pl-10 pr-4 py-2.5 bg-[#F8FAFC] rounded-2xl text-xs font-medium text-[#0F172A] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] focus:bg-white shadow-2xs transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#F8FAFC] rounded-2xl text-xs font-medium text-[#0F172A] border border-[#EDE4D6] focus:outline-none focus:border-[#D97706] focus:bg-white shadow-2xs transition-colors"
               />
             </div>
           </div>
 
           {/* Demo Credentials Info Box */}
-          <div className="bg-[#F0F7FF] border border-[#BAE6FD] rounded-2xl p-3 text-xs space-y-1">
-            <div className="font-bold text-[#0284C7] flex items-center justify-between">
+          <div className="bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl p-3 text-xs space-y-1">
+            <div className="font-bold text-[#D97706] flex items-center justify-between">
               <span>🔑 Demo Credentials</span>
-              <span className="text-[10px] bg-white border border-[#BAE6FD] px-2 py-0.5 rounded-full font-mono text-[#0284C7]">
+              <span className="text-[10px] bg-white border border-[#FDE68A] px-2 py-0.5 rounded-full font-mono text-[#D97706]">
                 Quick Login
               </span>
             </div>
             <div className="text-[#475569] text-[11px] grid grid-cols-2 gap-2 pt-1">
-              <div className="bg-white p-2 rounded-xl border border-[#BAE6FD]/60">
+              <div className="bg-white p-2 rounded-xl border border-[#FDE68A]/60">
                 <div className="font-bold text-[#0F172A]">Rescuer</div>
-                <div className="font-mono text-[#0284C7]">RSC-01</div>
+                <div className="font-mono text-[#D97706]">RSC-01</div>
               </div>
-              <div className="bg-white p-2 rounded-xl border border-[#BAE6FD]/60">
+              <div className="bg-white p-2 rounded-xl border border-[#FDE68A]/60">
                 <div className="font-bold text-[#0F172A]">Worker</div>
                 <div className="font-mono text-[#16A34A]">W1026</div>
               </div>
@@ -155,7 +155,7 @@ export default function LoginModal() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-bold rounded-2xl shadow-md shadow-sky-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-3 bg-[#D97706] hover:bg-[#B45309] text-white text-xs font-bold rounded-2xl shadow-md shadow-amber-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
             <LogIn className="w-4 h-4" />
             <span>Sign In as {selectedRole === 'Supervisor' ? 'Rescuer' : selectedRole}</span>

@@ -29,11 +29,11 @@ export function PillButton({
 
   const variantClasses = {
     primary:
-      'bg-[#0284C7] hover:bg-[#0369A1] text-white shadow-sm hover:shadow-[0_4px_12px_rgba(2,132,199,0.25)] border border-transparent',
+      'bg-[#D97706] hover:bg-[#B45309] text-white shadow-sm hover:shadow-[0_4px_12px_rgba(217,119,6,0.25)] border border-transparent',
     secondary:
-      'bg-white text-[#0284C7] border border-[#BAE6FD] hover:bg-[#E0F2FE]/50 shadow-xs',
+      'bg-white text-[#D97706] border border-[#FDE68A] hover:bg-[#FEF3C7]/50 shadow-xs',
     ghost:
-      'bg-transparent text-[#475569] hover:text-[#0284C7] hover:bg-[#F1F5F9]',
+      'bg-transparent text-[#475569] hover:text-[#D97706] hover:bg-[#F1F5F9]',
     danger:
       'bg-[#EF4444] hover:bg-[#DC2626] text-white shadow-sm hover:shadow-[0_4px_12px_rgba(239,68,68,0.25)] border border-transparent',
   }[variant];

@@ -89,7 +89,7 @@ export function RoleProvider({ children }: { children: ReactNode }) {
   }[role];
 
   const roleBadgeColor = {
-    Supervisor: 'bg-[#E0F2FE] text-[#0284C7]',
+    Supervisor: 'bg-[#FEF3C7] text-[#B45309]',
     Worker: 'bg-[#DCFCE7] text-[#15803D]',
   }[role];
 

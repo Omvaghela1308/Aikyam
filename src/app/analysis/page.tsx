@@ -38,7 +38,7 @@ export default function AllDayAnalysisPage() {
   return (
     <div className="space-y-8 pb-12">
       {/* Page header, same layout as the Alerts page */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E3EAF5] pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EDE4D6] pb-5">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight">
             Daily Analysis
@@ -46,7 +46,7 @@ export default function AllDayAnalysisPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-white text-[#0284C7] border border-[#BAE6FD] shadow-2xs">
+          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-white text-[#D97706] border border-[#FDE68A] shadow-2xs">
             <Calendar className="w-3.5 h-3.5" />
             Shift: 08:00 AM - 04:00 PM
           </span>
@@ -58,25 +58,25 @@ export default function AllDayAnalysisPage() {
         <div className="space-y-6">
           {/* Individual Shift Metric Summaries */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <Card variant="interactive" padding="md" className="bg-white border-[#E3EAF5]">
+            <Card variant="interactive" padding="md" className="bg-white border-[#EDE4D6]">
               <span className="text-xs font-medium text-[#64748B]">Average Heart Rate</span>
               <div className="text-2xl font-black text-[#0F172A] font-mono mt-1">76 bpm</div>
               <span className="text-[10px] text-emerald-600 font-bold block mt-1">Peak: 88 bpm (Normal)</span>
             </Card>
 
-            <Card variant="interactive" padding="md" className="bg-white border-[#E3EAF5]">
+            <Card variant="interactive" padding="md" className="bg-white border-[#EDE4D6]">
               <span className="text-xs font-medium text-[#64748B]">Gas Exposure Dose</span>
-              <div className="text-2xl font-black text-[#0284C7] font-mono mt-1">1.2 ppm-h</div>
-              <span className="text-[10px] text-sky-600 font-bold block mt-1">Below Permissible Limit</span>
+              <div className="text-2xl font-black text-[#D97706] font-mono mt-1">1.2 ppm-h</div>
+              <span className="text-[10px] text-amber-600 font-bold block mt-1">Below Permissible Limit</span>
             </Card>
 
-            <Card variant="interactive" padding="md" className="bg-white border-[#E3EAF5]">
+            <Card variant="interactive" padding="md" className="bg-white border-[#EDE4D6]">
               <span className="text-xs font-medium text-[#64748B]">PCM Vest Cooling</span>
               <div className="text-2xl font-black text-teal-600 font-mono mt-1">94%</div>
               <span className="text-[10px] text-teal-700 font-bold block mt-1">Active Cooling: 5.2 hrs</span>
             </Card>
 
-            <Card variant="interactive" padding="md" className="bg-white border-[#E3EAF5]">
+            <Card variant="interactive" padding="md" className="bg-white border-[#EDE4D6]">
               <span className="text-xs font-medium text-[#64748B]">Total Shift Log</span>
               <div className="text-2xl font-black text-[#0F172A] font-mono mt-1">7h 45m</div>
               <span className="text-[10px] text-emerald-600 font-bold block mt-1">Battery: 88% (LiFePO4)</span>
@@ -84,11 +84,11 @@ export default function AllDayAnalysisPage() {
           </div>
 
           {/* Personal Timewise All-Day Shift Analysis Section */}
-          <div className="bg-white rounded-3xl p-6 border border-[#E3EAF5] shadow-sm space-y-6">
+          <div className="bg-white rounded-3xl p-6 border border-[#EDE4D6] shadow-sm space-y-6">
             <div className="flex items-center justify-between border-b border-[#F1F5F9] pb-4">
               <div>
                 <h2 className="text-lg font-bold text-[#0F172A] flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-[#0284C7]" />
+                  <Clock className="w-5 h-5 text-[#D97706]" />
                   My Personal All-Day Shift Analysis
                 </h2>
                 <p className="text-xs text-[#64748B] mt-0.5">
@@ -96,7 +96,7 @@ export default function AllDayAnalysisPage() {
                 </p>
               </div>
 
-              <span className="text-xs font-mono px-3 py-1 rounded-full bg-[#E0F2FE] text-[#0284C7] font-bold border border-[#BAE6FD]">
+              <span className="text-xs font-mono px-3 py-1 rounded-full bg-[#FEF3C7] text-[#D97706] font-bold border border-[#FDE68A]">
                 Active Shift: 08:00 AM - 04:00 PM
               </span>
             </div>
@@ -105,7 +105,7 @@ export default function AllDayAnalysisPage() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[#0F172A] flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-[#0284C7]" />
+                  <Clock className="w-4 h-4 text-[#D97706]" />
                   1-Hour Interval All-Day Shift Health & Environmental Breakdown
                 </h3>
                 <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">
@@ -129,13 +129,13 @@ export default function AllDayAnalysisPage() {
                 </div>
 
                 {/* 09:00 AM */}
-                <div className="p-3.5 rounded-2xl bg-sky-50/90 border border-sky-200 space-y-2">
+                <div className="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-extrabold text-[#0F172A] text-xs">09:00 AM</span>
-                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-sky-200 text-sky-800">Descent</span>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-amber-200 text-amber-800">Descent</span>
                   </div>
-                  <p className="text-xs font-semibold text-sky-900">Shaft 4 Incline Descent</p>
-                  <div className="text-[11px] text-sky-800 space-y-0.5 font-mono pt-2 border-t border-sky-200/60">
+                  <p className="text-xs font-semibold text-amber-900">Shaft 4 Incline Descent</p>
+                  <div className="text-[11px] text-amber-800 space-y-0.5 font-mono pt-2 border-t border-amber-200/60">
                     <div>• H₂S Gas: <span className="font-bold">1.2 ppm</span> (Safe)</div>
                     <div>• Pulse: <span className="font-bold">75 bpm</span> • Temp: <span className="font-bold">25.0°C</span></div>
                     <div>• Dust PM2.5: <span className="font-bold">18 µg/m³</span> • Battery: <span className="font-bold">97%</span></div>
@@ -143,13 +143,13 @@ export default function AllDayAnalysisPage() {
                 </div>
 
                 {/* 10:00 AM */}
-                <div className="p-3.5 rounded-2xl bg-sky-50/90 border border-sky-200 space-y-2">
+                <div className="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-extrabold text-[#0F172A] text-xs">10:00 AM</span>
-                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-sky-200 text-sky-800">Calibration</span>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-amber-200 text-amber-800">Calibration</span>
                   </div>
-                  <p className="text-xs font-semibold text-sky-900">Drill Rig Calibration & Positioning</p>
-                  <div className="text-[11px] text-sky-800 space-y-0.5 font-mono pt-2 border-t border-sky-200/60">
+                  <p className="text-xs font-semibold text-amber-900">Drill Rig Calibration & Positioning</p>
+                  <div className="text-[11px] text-amber-800 space-y-0.5 font-mono pt-2 border-t border-amber-200/60">
                     <div>• H₂S Gas: <span className="font-bold">2.0 ppm</span> (Normal)</div>
                     <div>• Pulse: <span className="font-bold">79 bpm</span> • Temp: <span className="font-bold">26.1°C</span></div>
                     <div>• Dust PM2.5: <span className="font-bold">25 µg/m³</span> • Battery: <span className="font-bold">94%</span></div>
@@ -157,13 +157,13 @@ export default function AllDayAnalysisPage() {
                 </div>
 
                 {/* 11:00 AM */}
-                <div className="p-3.5 rounded-2xl bg-sky-50/90 border border-sky-200 space-y-2">
+                <div className="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-extrabold text-[#0F172A] text-xs">11:00 AM</span>
-                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-sky-200 text-sky-800">Active Duty</span>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-amber-200 text-amber-800">Active Duty</span>
                   </div>
-                  <p className="text-xs font-semibold text-sky-900">Active Tunnel Shaft Excavation</p>
-                  <div className="text-[11px] text-sky-800 space-y-0.5 font-mono pt-2 border-t border-sky-200/60">
+                  <p className="text-xs font-semibold text-amber-900">Active Tunnel Shaft Excavation</p>
+                  <div className="text-[11px] text-amber-800 space-y-0.5 font-mono pt-2 border-t border-amber-200/60">
                     <div>• H₂S Gas: <span className="font-bold">3.4 ppm</span> (Normal)</div>
                     <div>• Pulse: <span className="font-bold">81 bpm</span> • PCM Cooling: <span className="font-bold text-teal-600">Active (18°C)</span></div>
                     <div>• Dust PM2.5: <span className="font-bold">38 µg/m³</span> • Battery: <span className="font-bold">91%</span></div>
@@ -213,13 +213,13 @@ export default function AllDayAnalysisPage() {
                 </div>
 
                 {/* 03:00 PM */}
-                <div className="p-3.5 rounded-2xl bg-indigo-50/90 border border-indigo-200 space-y-2">
+                <div className="p-3.5 rounded-2xl bg-orange-50/90 border border-orange-200 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-extrabold text-[#0F172A] text-xs">03:00 PM</span>
-                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-indigo-200 text-indigo-900">Shoring</span>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-orange-200 text-orange-900">Shoring</span>
                   </div>
-                  <p className="text-xs font-semibold text-indigo-900">Shaft Timbering & Site Secure</p>
-                  <div className="text-[11px] text-indigo-800 space-y-0.5 font-mono pt-2 border-t border-indigo-200/60">
+                  <p className="text-xs font-semibold text-orange-900">Shaft Timbering & Site Secure</p>
+                  <div className="text-[11px] text-orange-800 space-y-0.5 font-mono pt-2 border-t border-orange-200/60">
                     <div>• H₂S Gas: <span className="font-bold">2.1 ppm</span> (Clear)</div>
                     <div>• Pulse: <span className="font-bold">77 bpm</span> • Temp: <span className="font-bold">27.0°C</span></div>
                     <div>• Dust PM2.5: <span className="font-bold">22 µg/m³</span> • Battery: <span className="font-bold">82%</span></div>
@@ -256,7 +256,7 @@ export default function AllDayAnalysisPage() {
           {/* All Workers Grid Roster */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {workers.map((worker) => (
-              <Card key={worker.id} variant="interactive" padding="md" className="bg-white border-[#E3EAF5] shadow-xs flex flex-col justify-between">
+              <Card key={worker.id} variant="interactive" padding="md" className="bg-white border-[#EDE4D6] shadow-xs flex flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5">
@@ -266,21 +266,21 @@ export default function AllDayAnalysisPage() {
                         <p className="text-[11px] text-[#64748B] mt-0.5">{worker.role}</p>
                       </div>
                     </div>
-                    <span className="font-mono text-[10px] font-bold text-[#0284C7] bg-[#E0F2FE] px-2 py-0.5 rounded border border-[#BAE6FD]">
+                    <span className="font-mono text-[10px] font-bold text-[#D97706] bg-[#FEF3C7] px-2 py-0.5 rounded border border-[#FDE68A]">
                       {worker.id}
                     </span>
                   </div>
 
-                  <div className="mt-3 text-[11px] text-[#64748B] bg-[#F8FAFC] px-2.5 py-1.5 rounded-lg border border-[#E3EAF5] flex justify-between">
+                  <div className="mt-3 text-[11px] text-[#64748B] bg-[#F8FAFC] px-2.5 py-1.5 rounded-lg border border-[#EDE4D6] flex justify-between">
                     <span>{worker.zone}</span>
-                    <span className="font-mono font-bold text-[#0284C7]">{worker.jacketId}</span>
+                    <span className="font-mono font-bold text-[#D97706]">{worker.jacketId}</span>
                   </div>
 
                   {/* Vitals Summary */}
                   <div className="mt-3 pt-2.5 border-t border-[#E2E8F0] grid grid-cols-3 gap-2 text-xs">
                     <div>
                       <span className="text-[9px] text-[#64748B] uppercase block">H₂S Gas</span>
-                      <span className="font-mono font-bold text-[#0284C7]">{worker.h2s.toFixed(1)} ppm</span>
+                      <span className="font-mono font-bold text-[#D97706]">{worker.h2s.toFixed(1)} ppm</span>
                     </div>
                     <div>
                       <span className="text-[9px] text-[#64748B] uppercase block">Pulse</span>

@@ -26,7 +26,7 @@ export default function LandingPage() {
   const depthMeters = Math.round(140 + scrollProgress * 880);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden select-none bg-[#0F172A] text-white font-sans selection:bg-[#0284C7] selection:text-white">
+    <div className="relative min-h-screen overflow-x-hidden select-none bg-[#0F172A] text-white font-sans selection:bg-[#D97706] selection:text-white">
       {/* 3D WebGL tunnel */}
       <ThreeStage
         scrollProg={scrollProgress}

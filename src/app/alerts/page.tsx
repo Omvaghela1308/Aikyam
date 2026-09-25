@@ -151,7 +151,7 @@ export default function AlertsPage() {
   return (
     <div className="space-y-6">
       {actionMessage && (
-        <div className="fixed top-24 right-8 z-50 bg-[#0F172A] text-white px-5 py-3 rounded-2xl shadow-xl border border-sky-400/40 flex items-center gap-3 animate-bounce">
+        <div className="fixed top-24 right-8 z-50 bg-[#0F172A] text-white px-5 py-3 rounded-2xl shadow-xl border border-amber-400/40 flex items-center gap-3 animate-bounce">
           <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
           <span className="text-xs font-semibold">{actionMessage}</span>
         </div>
@@ -187,7 +187,7 @@ export default function AlertsPage() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#E3EAF5] pb-3">
+      <div className="flex items-center gap-2 border-b border-[#EDE4D6] pb-3">
         {(['all', 'danger', 'warning', 'resolved'] as const).map((tab) => (
           <button
             key={tab}
@@ -196,8 +196,8 @@ export default function AlertsPage() {
               px-4 py-1.5 rounded-full text-xs font-semibold capitalize transition-colors cursor-pointer
               ${
                 activeFilter === tab
-                  ? 'bg-[#0284C7] text-white shadow-2xs'
-                  : 'bg-white text-[#475569] border border-[#E3EAF5] hover:bg-[#F8FAFC]'
+                  ? 'bg-[#D97706] text-white shadow-2xs'
+                  : 'bg-white text-[#475569] border border-[#EDE4D6] hover:bg-[#F8FAFC]'
               }
             `}
           >
@@ -209,7 +209,7 @@ export default function AlertsPage() {
       {/* Alert Feed */}
       <div className="space-y-4">
         {filteredAlerts.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-3xl border border-[#E3EAF5]">
+          <div className="text-center py-12 bg-white rounded-3xl border border-[#EDE4D6]">
             <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
             <h3 className="text-base font-bold text-[#0F172A]">No Active Alerts</h3>
             <p className="text-xs text-[#64748B] mt-1">All subterranean mine safety telemetry parameters are in optimal range.</p>
@@ -277,7 +277,7 @@ export default function AlertsPage() {
                       {alert.timestamp}
                     </span>
 
-                    <div className="flex items-center gap-2 bg-white px-2.5 py-1 rounded-full border border-[#E3EAF5]">
+                    <div className="flex items-center gap-2 bg-white px-2.5 py-1 rounded-full border border-[#EDE4D6]">
                       <Avatar name={alert.worker} size="xs" status={isAck ? 'safe' : alert.level} />
                       <span className="text-xs font-semibold text-[#0F172A]">
                         {alert.worker} ({alert.workerJacket})
@@ -286,7 +286,7 @@ export default function AlertsPage() {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-[#E3EAF5] flex items-center justify-between text-xs">
+                <div className="mt-4 pt-3 border-t border-[#EDE4D6] flex items-center justify-between text-xs">
                   <span className="text-[#64748B]">
                     Affected Zone: <strong className="text-[#0F172A]">{alert.zone}</strong>
                   </span>
@@ -308,7 +308,7 @@ export default function AlertsPage() {
                       className={`px-3 py-1 border font-semibold rounded-full shadow-2xs cursor-pointer flex items-center gap-1.5 transition-all ${
                         isDispatched
                           ? 'bg-emerald-100 border-emerald-300 text-emerald-800 opacity-80 cursor-default'
-                          : 'bg-white border-[#BAE6FD] hover:bg-[#E0F2FE] text-[#0284C7]'
+                          : 'bg-white border-[#FDE68A] hover:bg-[#FEF3C7] text-[#D97706]'
                       }`}
                     >
                       {isDispatched ? <Check className="w-3.5 h-3.5" /> : <Send className="w-3.5 h-3.5" />}

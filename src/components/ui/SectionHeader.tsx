@@ -31,7 +31,7 @@ export function SectionHeader({
     return parts.map((part, idx) => {
       if (part.toLowerCase() === highlightWord.toLowerCase()) {
         return (
-          <span key={idx} className="text-[#0284C7]">
+          <span key={idx} className="text-[#D97706]">
             {part}
           </span>
         );
@@ -43,7 +43,7 @@ export function SectionHeader({
   const actionButton = (
     <button
       onClick={onAction}
-      className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-full border border-[#0284C7] text-[#0284C7] bg-white hover:bg-[#E0F2FE]/50 transition-colors duration-150 cursor-pointer shadow-2xs"
+      className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-full border border-[#D97706] text-[#D97706] bg-white hover:bg-[#FEF3C7]/50 transition-colors duration-150 cursor-pointer shadow-2xs"
     >
       <span>{actionText}</span>
       <ArrowRight className="w-3.5 h-3.5" />
@@ -54,7 +54,7 @@ export function SectionHeader({
     <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 ${className}`}>
       <div className="flex items-start sm:items-center gap-3">
         {/* Left thin blue vertical line */}
-        <div className="w-1.5 h-6 bg-[#0284C7] rounded-full flex-shrink-0 mt-0.5 sm:mt-0" />
+        <div className="w-1.5 h-6 bg-[#D97706] rounded-full flex-shrink-0 mt-0.5 sm:mt-0" />
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-[#0F172A] tracking-tight">
             {renderTitle()}

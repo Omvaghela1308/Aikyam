@@ -148,11 +148,11 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
-      <div className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-[#E3EAF5] overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-[#EDE4D6] overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white">
+        <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-slate-900 via-orange-950 to-slate-900 text-white">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 text-indigo-400">
+            <div className="p-2.5 rounded-2xl bg-orange-500/20 border border-orange-400/30 text-orange-400">
               <Cpu className="w-6 h-6 animate-pulse" />
             </div>
             <div>
@@ -185,7 +185,7 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
         {/* Vertical Options Navigation + Content Body */}
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden min-h-[420px]">
           {/* Vertical Options Navigation Sidebar */}
-          <div className="w-full md:w-64 bg-[#F8FAFC] border-r border-[#E3EAF5] p-4 flex flex-col gap-2 shrink-0">
+          <div className="w-full md:w-64 bg-[#F8FAFC] border-r border-[#EDE4D6] p-4 flex flex-col gap-2 shrink-0">
             <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#64748B] px-3 py-1">
               Connection Options
             </span>
@@ -194,8 +194,8 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
               onClick={() => setActiveTab('serial')}
               className={`flex items-center gap-3 px-3.5 py-3 text-xs font-bold rounded-2xl transition-all cursor-pointer text-left ${
                 activeTab === 'serial'
-                  ? 'bg-[#0284C7] text-white shadow-md shadow-sky-600/20'
-                  : 'bg-white text-[#475569] hover:text-[#0284C7] hover:bg-slate-100 border border-[#E3EAF5]'
+                  ? 'bg-[#D97706] text-white shadow-md shadow-amber-600/20'
+                  : 'bg-white text-[#475569] hover:text-[#D97706] hover:bg-slate-100 border border-[#EDE4D6]'
               }`}
             >
               <Usb className="w-4 h-4 shrink-0" />
@@ -206,8 +206,8 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
               onClick={() => setActiveTab('websocket')}
               className={`flex items-center gap-3 px-3.5 py-3 text-xs font-bold rounded-2xl transition-all cursor-pointer text-left ${
                 activeTab === 'websocket'
-                  ? 'bg-[#0284C7] text-white shadow-md shadow-sky-600/20'
-                  : 'bg-white text-[#475569] hover:text-[#0284C7] hover:bg-slate-100 border border-[#E3EAF5]'
+                  ? 'bg-[#D97706] text-white shadow-md shadow-amber-600/20'
+                  : 'bg-white text-[#475569] hover:text-[#D97706] hover:bg-slate-100 border border-[#EDE4D6]'
               }`}
             >
               <Wifi className="w-4 h-4 shrink-0" />
@@ -218,8 +218,8 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
               onClick={() => setActiveTab('code')}
               className={`flex items-center gap-3 px-3.5 py-3 text-xs font-bold rounded-2xl transition-all cursor-pointer text-left ${
                 activeTab === 'code'
-                  ? 'bg-[#0284C7] text-white shadow-md shadow-sky-600/20'
-                  : 'bg-white text-[#475569] hover:text-[#0284C7] hover:bg-slate-100 border border-[#E3EAF5]'
+                  ? 'bg-[#D97706] text-white shadow-md shadow-amber-600/20'
+                  : 'bg-white text-[#475569] hover:text-[#D97706] hover:bg-slate-100 border border-[#EDE4D6]'
               }`}
             >
               <Code className="w-4 h-4 shrink-0" />
@@ -230,8 +230,8 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
               onClick={() => setActiveTab('simulate')}
               className={`flex items-center gap-3 px-3.5 py-3 text-xs font-bold rounded-2xl transition-all cursor-pointer text-left ${
                 activeTab === 'simulate'
-                  ? 'bg-[#0284C7] text-white shadow-md shadow-sky-600/20'
-                  : 'bg-white text-[#475569] hover:text-[#0284C7] hover:bg-slate-100 border border-[#E3EAF5]'
+                  ? 'bg-[#D97706] text-white shadow-md shadow-amber-600/20'
+                  : 'bg-white text-[#475569] hover:text-[#D97706] hover:bg-slate-100 border border-[#EDE4D6]'
               }`}
             >
               <Zap className="w-4 h-4 shrink-0" />
@@ -244,8 +244,8 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
             {/* TAB 1: WEB SERIAL */}
             {activeTab === 'serial' && (
             <div className="space-y-4">
-              <div className="p-4 rounded-2xl bg-sky-50 border border-sky-100 flex items-start gap-3">
-                <Usb className="w-5 h-5 text-[#0284C7] flex-shrink-0 mt-0.5" />
+              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-100 flex items-start gap-3">
+                <Usb className="w-5 h-5 text-[#D97706] flex-shrink-0 mt-0.5" />
                 <div className="text-xs text-[#0F172A] space-y-1">
                   <p className="font-bold">Plug ESP32 into Laptop/PC via USB Cable</p>
                   <p className="text-[#64748B]">
@@ -260,7 +260,7 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
                   <select
                     value={baudRate}
                     onChange={(e) => setBaudRate(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-[#E3EAF5] rounded-xl text-xs font-semibold text-[#0F172A] focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 bg-white border border-[#EDE4D6] rounded-xl text-xs font-semibold text-[#0F172A] focus:outline-none focus:border-[#D97706]"
                   >
                     <option value="115200">115200 (Recommended for ESP32)</option>
                     <option value="9600">9600 (Standard Serial)</option>
@@ -279,7 +279,7 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
                   ) : (
                     <button
                       onClick={handleSerialConnect}
-                      className="w-full py-2 px-4 rounded-xl text-xs font-bold text-white bg-[#0284C7] hover:bg-[#0369A1] transition-all cursor-pointer shadow-sm flex items-center justify-center gap-2"
+                      className="w-full py-2 px-4 rounded-xl text-xs font-bold text-white bg-[#D97706] hover:bg-[#B45309] transition-all cursor-pointer shadow-sm flex items-center justify-center gap-2"
                     >
                       <Usb className="w-4 h-4" />
                       Select COM Port & Connect
@@ -293,8 +293,8 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
           {/* TAB 2: WEBSOCKETS */}
           {activeTab === 'websocket' && (
             <div className="space-y-4">
-              <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-start gap-3">
-                <Wifi className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
+              <div className="p-4 rounded-2xl bg-orange-50 border border-orange-100 flex items-start gap-3">
+                <Wifi className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
                 <div className="text-xs text-[#0F172A] space-y-1">
                   <p className="font-bold">Wireless IP Telemetry Stream</p>
                   <p className="text-[#64748B]">
@@ -314,7 +314,7 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
                       value={wsUrl}
                       onChange={(e) => setWsUrl(e.target.value)}
                       placeholder="ws://192.168.1.100:81"
-                      className="flex-1 px-3 py-2 bg-white border border-[#E3EAF5] rounded-xl text-xs font-mono text-[#0F172A] focus:outline-none focus:border-[#0284C7]"
+                      className="flex-1 px-3 py-2 bg-white border border-[#EDE4D6] rounded-xl text-xs font-mono text-[#0F172A] focus:outline-none focus:border-[#D97706]"
                     />
                     {physicalJacket?.isConnected && physicalJacket.connectionType === 'websocket' ? (
                       <button
@@ -326,7 +326,7 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
                     ) : (
                       <button
                         onClick={handleWebSocketConnect}
-                        className="py-2 px-4 rounded-xl text-xs font-bold text-white bg-[#0284C7] hover:bg-[#0369A1] transition-all cursor-pointer flex items-center gap-1.5"
+                        className="py-2 px-4 rounded-xl text-xs font-bold text-white bg-[#D97706] hover:bg-[#B45309] transition-all cursor-pointer flex items-center gap-1.5"
                       >
                         <RadioTower className="w-4 h-4" />
                         Connect Wi-Fi
@@ -347,7 +347,7 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
                 </span>
                 <button
                   onClick={handleCopyCode}
-                  className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#E0F2FE] text-[#0284C7] hover:bg-[#BAE6FD] transition-all cursor-pointer flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#FEF3C7] text-[#D97706] hover:bg-[#FDE68A] transition-all cursor-pointer flex items-center gap-1.5"
                 >
                   {copiedCode ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   {copiedCode ? 'Copied!' : 'Copy Arduino Code'}
@@ -386,7 +386,7 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
           {/* Connection Log Terminal */}
           <div className="space-y-1.5 pt-2">
             <div className="flex items-center gap-2 text-xs font-bold text-[#475569]">
-              <Terminal className="w-3.5 h-3.5 text-[#0284C7]" />
+              <Terminal className="w-3.5 h-3.5 text-[#D97706]" />
               Live Packet Console & Connection Log
             </div>
             <div className="bg-slate-900 rounded-2xl p-3 font-mono text-[11px] text-emerald-400 border border-slate-800 h-28 overflow-y-auto space-y-1 shadow-inner">
@@ -401,7 +401,7 @@ export function JacketConnectModal({ isOpen, onClose }: JacketConnectModalProps)
       </div>
 
         {/* Footer */}
-        <div className="px-6 py-3 bg-[#F8FAFC] border-t border-[#E3EAF5] flex items-center justify-between">
+        <div className="px-6 py-3 bg-[#F8FAFC] border-t border-[#EDE4D6] flex items-center justify-between">
           <span className="text-[11px] text-[#64748B] flex items-center gap-1.5">
             <Activity className="w-3.5 h-3.5 text-emerald-600" />
             ESP32 MineGuard Protocol v2.4 (Serial/WS JSON)

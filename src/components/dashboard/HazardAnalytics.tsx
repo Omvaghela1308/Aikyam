@@ -42,11 +42,12 @@ export default function HazardAnalytics() {
       value: '12 ppm',
       threshold: '< 25 ppm Normal',
       status: 'safe',
-      icon: <Wind className="w-4 h-4 text-[#0284C7]" />,
-      bg: 'bg-sky-50 border-sky-200',
-      text: 'text-[#0284C7]',
+      // Safe readings stay out of amber, which means "warning" on this dashboard
+      icon: <Wind className="w-4 h-4 text-teal-600" />,
+      bg: 'bg-teal-50 border-teal-200',
+      text: 'text-teal-700',
       progress: 48,
-      barColor: 'bg-[#0284C7]',
+      barColor: 'bg-teal-500',
     },
     {
       name: 'Hydrogen Sulfide (H₂S)',
@@ -64,19 +65,19 @@ export default function HazardAnalytics() {
       value: '20.8%',
       threshold: '19.5% - 23.5% Optimal',
       status: 'safe',
-      icon: <Gauge className="w-4 h-4 text-sky-600" />,
-      bg: 'bg-sky-50 border-sky-200',
-      text: 'text-sky-700',
+      icon: <Gauge className="w-4 h-4 text-cyan-600" />,
+      bg: 'bg-cyan-50 border-cyan-200',
+      text: 'text-cyan-700',
       progress: 88,
-      barColor: 'bg-sky-500',
+      barColor: 'bg-cyan-500',
     },
   ];
 
   return (
-    <Card variant="flat" padding="lg" className="bg-white border-[#E3EAF5] shadow-xs">
+    <Card variant="flat" padding="lg" className="bg-white border-[#EDE4D6] shadow-xs">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0284C7] to-[#0EA5E9] p-2 flex items-center justify-center text-white shadow-md shadow-sky-500/20">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#D97706] to-[#F59E0B] p-2 flex items-center justify-center text-white shadow-md shadow-amber-500/20">
             <Activity className="w-5 h-5" />
           </div>
           <div>

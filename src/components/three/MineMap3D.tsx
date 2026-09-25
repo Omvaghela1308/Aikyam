@@ -236,7 +236,7 @@ function SurfaceStructures({ opacity }: { opacity: number }) {
         {/* Glass Windows */}
         <mesh position={[0, 0.3, 3.02]}>
           <planeGeometry args={[6.5, 1.4]} />
-          <meshStandardMaterial color="#38bdf8" roughness={0.1} metalness={0.8} transparent={transparent} opacity={opacity * 0.8} />
+          <meshStandardMaterial color="#fbbf24" roughness={0.1} metalness={0.8} transparent={transparent} opacity={opacity * 0.8} />
         </mesh>
         {/* Rooftop AC unit */}
         <mesh position={[2, 1.9, 0]}>
@@ -254,7 +254,7 @@ function SurfaceStructures({ opacity }: { opacity: number }) {
         {/* Inclined Conveyor Tube */}
         <mesh position={[-6, 0, 2]} rotation={[0, 0, 0.45]}>
           <cylinderGeometry args={[0.7, 0.7, 9, 8]} />
-          <meshStandardMaterial color="#0284c7" metalness={0.5} roughness={0.5} transparent={transparent} opacity={opacity} />
+          <meshStandardMaterial color="#d97706" metalness={0.5} roughness={0.5} transparent={transparent} opacity={opacity} />
         </mesh>
       </group>
 
@@ -269,7 +269,7 @@ function SurfaceStructures({ opacity }: { opacity: number }) {
         {/* Cylindrical Storage Tanks */}
         <mesh position={[-2, 0, 0]} castShadow>
           <cylinderGeometry args={[1.4, 1.4, 3.4, 16]} />
-          <meshStandardMaterial color="#0284c7" metalness={0.6} roughness={0.3} transparent={transparent} opacity={opacity} />
+          <meshStandardMaterial color="#d97706" metalness={0.6} roughness={0.3} transparent={transparent} opacity={opacity} />
         </mesh>
         <mesh position={[2, 0, 0]} castShadow>
           <cylinderGeometry args={[1.4, 1.4, 3.4, 16]} />
@@ -382,7 +382,7 @@ function UndergroundLevel({
   const transparent = !isActive;
 
   // Tunnel Colors
-  const tunnelColor = isActive ? '#0284c7' : '#64748b';
+  const tunnelColor = isActive ? '#d97706' : '#64748b';
   const rockFloorColor = isActive ? '#1e293b' : '#334155';
 
   return (
@@ -400,7 +400,7 @@ function UndergroundLevel({
 
       {/* Grid Floor Overlay on Selected Level */}
       {isActive && (
-        <gridHelper args={[44, 22, '#38bdf8', '#0c4a6e']} position={[0, 0.08, 0]} />
+        <gridHelper args={[44, 22, '#fbbf24', '#78350f']} position={[0, 0.08, 0]} />
       )}
 
       {/* 3D Level Label Tag in 3D Space */}
@@ -411,13 +411,13 @@ function UndergroundLevel({
             onClick={(e) => { e.stopPropagation(); onSelect(); }}
             className={`rounded-xl border font-mono font-bold shadow-lg transition-all cursor-pointer flex items-center whitespace-nowrap ${
               isActive
-                ? 'px-3 py-1.5 gap-2 text-xs bg-slate-900 text-white border-sky-400 ring-2 ring-sky-400/40'
+                ? 'px-3 py-1.5 gap-2 text-xs bg-slate-900 text-white border-amber-400 ring-2 ring-amber-400/40'
                 : 'px-2 py-0.5 gap-1.5 text-[10px] bg-slate-900/60 text-slate-300 border-slate-600 opacity-80 hover:opacity-100 hover:bg-slate-900'
             }`}
           >
-            <span className={`rounded-full ${isActive ? 'w-2 h-2 bg-sky-400 animate-pulse' : 'w-1.5 h-1.5 bg-slate-400'}`} />
+            <span className={`rounded-full ${isActive ? 'w-2 h-2 bg-amber-400 animate-pulse' : 'w-1.5 h-1.5 bg-slate-400'}`} />
             <span>{level.name}</span>
-            <span className={isActive ? 'text-sky-400 font-extrabold' : 'text-slate-400'}>{level.depth}</span>
+            <span className={isActive ? 'text-amber-400 font-extrabold' : 'text-slate-400'}>{level.depth}</span>
           </div>
         </Html>
       </Float>
@@ -470,7 +470,7 @@ function UndergroundLevel({
         <mesh key={i} position={[x, 1.25, 0]} rotation={[0, 0, Math.PI / 2]}>
           <torusGeometry args={[2.22, 0.08, 6, 12, Math.PI]} />
           <meshStandardMaterial
-            color={isActive ? '#38bdf8' : '#475569'}
+            color={isActive ? '#fbbf24' : '#475569'}
             metalness={0.8}
             transparent={transparent}
             opacity={levelOpacity}
@@ -534,7 +534,7 @@ function UndergroundLevel({
         <mesh castShadow receiveShadow>
           <boxGeometry args={[3.6, 2.0, 2.6]} />
           <meshStandardMaterial
-            color="#0369a1"
+            color="#b45309"
             metalness={0.6}
             roughness={0.4}
             transparent={transparent}
@@ -544,11 +544,11 @@ function UndergroundLevel({
         {/* Substation Meter LED */}
         <mesh position={[0, 0.3, 1.32]}>
           <planeGeometry args={[1.8, 0.6]} />
-          <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1} />
+          <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={1} />
         </mesh>
         {isActive && (
           <Html position={[0, 1.8, 0]} center>
-            <div className="px-2 py-0.5 rounded bg-sky-950/90 text-sky-300 font-mono text-[9px] font-bold border border-sky-400 whitespace-nowrap shadow-xs">
+            <div className="px-2 py-0.5 rounded bg-amber-950/90 text-amber-300 font-mono text-[9px] font-bold border border-amber-400 whitespace-nowrap shadow-xs">
               SUB-STATION 4 (Sub-GHz)
             </div>
           </Html>
@@ -565,8 +565,8 @@ function UndergroundLevel({
           <mesh>
             <sphereGeometry args={[0.25, 8, 8]} />
             <meshStandardMaterial
-              color="#0284c7"
-              emissive="#38bdf8"
+              color="#d97706"
+              emissive="#fbbf24"
               emissiveIntensity={isActive ? 2.5 : 0.5}
               transparent={transparent}
               opacity={levelOpacity}
@@ -575,7 +575,7 @@ function UndergroundLevel({
           {isActive && (
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.2, 0]}>
               <ringGeometry args={[0.3, 0.55, 16]} />
-              <meshBasicMaterial color="#38bdf8" transparent opacity={0.6} side={THREE.DoubleSide} />
+              <meshBasicMaterial color="#fbbf24" transparent opacity={0.6} side={THREE.DoubleSide} />
             </mesh>
           )}
         </group>
@@ -618,7 +618,7 @@ function VerticalConnectingShafts({
         <mesh>
           <cylinderGeometry args={[2.5, 2.5, totalHeight, 16, 1, true]} />
           <meshStandardMaterial
-            color="#38bdf8"
+            color="#fbbf24"
             metalness={0.7}
             roughness={0.3}
             transparent
@@ -629,7 +629,7 @@ function VerticalConnectingShafts({
         {/* Vertical Shaft Steel Framing Ribs */}
         <mesh>
           <cylinderGeometry args={[2.55, 2.55, totalHeight, 8, 8, true]} />
-          <meshStandardMaterial color="#0284c7" wireframe transparent opacity={0.5} />
+          <meshStandardMaterial color="#d97706" wireframe transparent opacity={0.5} />
         </mesh>
       </group>
 
@@ -739,7 +739,7 @@ function Worker3DFigure({
         <mesh position={[0, 0.45, 0]} castShadow>
           <cylinderGeometry args={[0.3, 0.35, 0.8, 8]} />
           <meshStandardMaterial
-            color={isSelected || isMe ? '#0284c7' : '#f97316'}
+            color={isSelected || isMe ? '#d97706' : '#f97316'}
             roughness={0.4}
             metalness={0.2}
           />
@@ -789,16 +789,16 @@ function Worker3DFigure({
         >
           {/* "YOU" tag above the logged-in worker */}
           {isMe && (
-            <div className="mb-0.5 px-1.5 py-px rounded-full bg-sky-500 text-white text-[8px] font-black tracking-wider shadow-md shadow-sky-500/40">
+            <div className="mb-0.5 px-1.5 py-px rounded-full bg-slate-900 text-amber-300 border border-amber-400 text-[8px] font-black tracking-wider shadow-md">
               YOU
             </div>
           )}
 
-          {/* Circular Avatar Ring */}
+          {/* Circular Avatar Ring; "me" is dark with a status-colored ring so it never reads as a warning */}
           <div
             className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-[10px] text-white shadow-lg border-2 transition-all ${
               isMe && !isSOS
-                ? 'bg-sky-500 border-white ring-4 ring-sky-400/50'
+                ? `bg-slate-900 border-white ring-4 ${isWarning ? 'ring-amber-400/70' : 'ring-emerald-400/70'}`
                 : isSOS
                 ? 'bg-rose-600 border-rose-300 ring-4 ring-rose-500/40 animate-bounce'
                 : isWarning
@@ -869,7 +869,7 @@ export default function MineMap3D({
         />
 
         {/* Subterranean Fill Light */}
-        <pointLight position={[0, -20, 20]} intensity={0.6} color="#38bdf8" />
+        <pointLight position={[0, -20, 20]} intensity={0.6} color="#fbbf24" />
 
         {/* Camera Navigation Controller */}
         <CameraController

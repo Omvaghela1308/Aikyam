@@ -63,12 +63,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#EEF3FA] flex items-center justify-center p-4 sm:p-6 select-none font-sans">
+    <div className="min-h-screen bg-[#F7F3EC] flex items-center justify-center p-4 sm:p-6 select-none font-sans">
       {/* Centered Login Card */}
-      <div className="w-full max-w-[460px] bg-white rounded-[28px] shadow-[0_20px_50px_rgba(2,132,199,0.12)] border border-[#E3EAF5] overflow-hidden transition-all">
+      <div className="w-full max-w-[460px] bg-white rounded-[28px] shadow-[0_20px_50px_rgba(217,119,6,0.12)] border border-[#EDE4D6] overflow-hidden transition-all">
         
         {/* Top Header Banner */}
-        <div className="bg-gradient-to-r from-[#0284C7] to-[#0369A1] p-7 text-white text-center relative">
+        <div className="bg-gradient-to-r from-[#D97706] to-[#B45309] p-7 text-white text-center relative">
           <div className="w-13 h-13 rounded-2xl bg-white/20 backdrop-blur-xs flex items-center justify-center mx-auto mb-3 shadow-inner border border-white/25">
             <ShieldCheck className="w-7 h-7 text-white" />
           </div>
@@ -76,7 +76,7 @@ export default function LoginPage() {
           <h1 className="text-2xl font-black tracking-tight text-white">
             MineGuard Portal
           </h1>
-          <p className="text-xs text-sky-100 mt-1 font-medium">
+          <p className="text-xs text-amber-100 mt-1 font-medium">
             Sign in to access real-time underground telemetry
           </p>
         </div>
@@ -88,7 +88,7 @@ export default function LoginPage() {
             <label className="block text-[11px] font-bold text-[#64748B] uppercase tracking-wider mb-2">
               Account Classification
             </label>
-            <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#F0F7FF] rounded-2xl border border-[#BAE6FD]">
+            <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#FFFBEB] rounded-2xl border border-[#FDE68A]">
               <button
                 type="button"
                 onClick={() => handleRoleChange('Worker')}
@@ -107,11 +107,11 @@ export default function LoginPage() {
                 onClick={() => handleRoleChange('Supervisor')}
                 className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   selectedRole === 'Supervisor'
-                    ? 'bg-white text-[#0284C7] shadow-sm border border-[#BAE6FD]'
+                    ? 'bg-white text-[#D97706] shadow-sm border border-[#FDE68A]'
                     : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
               >
-                <HardHat className="w-4 h-4 text-[#0284C7]" />
+                <HardHat className="w-4 h-4 text-[#D97706]" />
                 <span>Rescuer</span>
               </button>
             </div>
@@ -130,7 +130,7 @@ export default function LoginPage() {
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder={selectedRole === 'Worker' ? 'e.g. W1026 or SJ-003' : 'e.g. RSC-01'}
                 required
-                className="w-full pl-10 pr-4 py-2.5 bg-[#F8FAFC] rounded-2xl text-xs font-medium text-[#0F172A] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] focus:bg-white shadow-2xs transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#F8FAFC] rounded-2xl text-xs font-medium text-[#0F172A] border border-[#EDE4D6] focus:outline-none focus:border-[#D97706] focus:bg-white shadow-2xs transition-colors"
               />
             </div>
           </div>
@@ -151,7 +151,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter passcode"
                 required
-                className="w-full pl-10 pr-10 py-2.5 bg-[#F8FAFC] rounded-2xl text-xs font-medium text-[#0F172A] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] focus:bg-white shadow-2xs transition-colors tracking-widest"
+                className="w-full pl-10 pr-10 py-2.5 bg-[#F8FAFC] rounded-2xl text-xs font-medium text-[#0F172A] border border-[#EDE4D6] focus:outline-none focus:border-[#D97706] focus:bg-white shadow-2xs transition-colors tracking-widest"
               />
               <button
                 type="button"
@@ -164,8 +164,8 @@ export default function LoginPage() {
           </div>
 
           {/* Role Description Note */}
-          <div className="bg-[#F8FAFC] border border-[#E3EAF5] rounded-2xl p-3.5 text-xs text-[#475569] flex items-start gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-[#0284C7] flex-shrink-0 mt-0.5" />
+          <div className="bg-[#F8FAFC] border border-[#EDE4D6] rounded-2xl p-3.5 text-xs text-[#475569] flex items-start gap-2.5">
+            <CheckCircle2 className="w-4 h-4 text-[#D97706] flex-shrink-0 mt-0.5" />
             <p className="text-[11px] leading-relaxed">
               {selectedRole === 'Worker' ? (
                 <>
@@ -190,7 +190,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3.5 px-4 bg-[#0284C7] hover:bg-[#0369A1] active:scale-[0.99] disabled:opacity-70 text-white text-xs font-bold rounded-2xl shadow-md shadow-sky-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer btn-3d"
+            className="w-full py-3.5 px-4 bg-[#D97706] hover:bg-[#B45309] active:scale-[0.99] disabled:opacity-70 text-white text-xs font-bold rounded-2xl shadow-md shadow-amber-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer btn-3d"
           >
             {isSubmitting ? (
               <div className="flex items-center gap-2">

@@ -346,7 +346,7 @@ export default function WorkersPage() {
     return (
       <div className="space-y-6 pb-12">
         {/* Worker Personal Header Banner (Matching Home Page) */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-gradient-to-r from-sky-50 via-slate-50 to-emerald-50 rounded-3xl border border-[#BAE6FD]/60 shadow-xs">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-gradient-to-r from-amber-50 via-slate-50 to-emerald-50 rounded-3xl border border-[#FDE68A]/60 shadow-xs">
           <div className="flex items-center gap-4">
             <Avatar name={myWorker.name} role={myWorker.role} size="lg" status={myWorker.status === 'online' ? 'safe' : myWorker.status === 'critical' ? 'danger' : 'warning'} />
             <div>
@@ -360,7 +360,7 @@ export default function WorkersPage() {
           <div className="flex items-center justify-between border-b border-slate-100 pb-4">
             <div>
               <h2 className="text-lg font-black text-slate-900 flex items-center gap-2 tracking-tight">
-                <div className="p-1.5 rounded-lg bg-sky-50 text-sky-600 border border-sky-100">
+                <div className="p-1.5 rounded-lg bg-amber-50 text-amber-600 border border-amber-100">
                   <Activity className="w-5 h-5" />
                 </div>
                 Smart Jacket Hardware & Real-Time Sensor Telemetry
@@ -374,10 +374,10 @@ export default function WorkersPage() {
           {/* Primary Telemetry Metric Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
             {/* H2S Gas */}
-            <div className="p-4 rounded-xl bg-gradient-to-b from-sky-50 via-white to-sky-50/50 border border-sky-200/80 shadow-[0_4px_12px_rgba(2,132,199,0.06),_inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_24px_rgba(2,132,199,0.15)] hover:border-sky-300 flex flex-col justify-between group">
-              <div className="flex items-center justify-between text-sky-800">
+            <div className="p-4 rounded-xl bg-gradient-to-b from-amber-50 via-white to-amber-50/50 border border-amber-200/80 shadow-[0_4px_12px_rgba(217,119,6,0.06),_inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_24px_rgba(217,119,6,0.15)] hover:border-amber-300 flex flex-col justify-between group">
+              <div className="flex items-center justify-between text-amber-800">
                 <span className="text-xs font-bold uppercase tracking-wide">H₂S Gas</span>
-                <div className="p-1 rounded-md bg-sky-100 text-sky-600 group-hover:rotate-12 transition-transform">
+                <div className="p-1 rounded-md bg-amber-100 text-amber-600 group-hover:rotate-12 transition-transform">
                   <Wind className="w-3.5 h-3.5" />
                 </div>
               </div>
@@ -385,7 +385,7 @@ export default function WorkersPage() {
                 <span className="text-2xl font-black text-slate-900 font-mono tracking-tight">{myWorker.h2s.toFixed(1)}</span>
                 <span className="text-xs text-slate-500 ml-1 font-semibold">ppm</span>
               </div>
-              <span className="text-[10px] font-bold text-sky-700 bg-sky-100/80 px-2 py-0.5 rounded-md inline-block text-center border border-sky-200/60">
+              <span className="text-[10px] font-bold text-amber-700 bg-amber-100/80 px-2 py-0.5 rounded-md inline-block text-center border border-amber-200/60">
                 {myWorker.colorimetricH2SDetected ? '⚠️ Strip Discolored' : '✓ MQ-136 Safe'}
               </span>
             </div>
@@ -481,7 +481,7 @@ export default function WorkersPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2">
-                  <Server className="w-4 h-4 text-sky-600" />
+                  <Server className="w-4 h-4 text-amber-600" />
                   Hardware Architecture & Bus Sub-Systems
                 </h3>
                 <p className="text-[11px] text-slate-500 mt-0.5">ESP32-WROOM node parameters and peripheral hardware diagnostic states</p>
@@ -508,7 +508,7 @@ export default function WorkersPage() {
                 </div>
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Main Controller</span> <span className="font-semibold text-slate-900 font-mono">ESP32-WROOM-32U</span></div>
-                  <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Firmware Build</span> <span className="font-semibold text-sky-600 font-mono">v2.4.1 (OTA)</span></div>
+                  <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Firmware Build</span> <span className="font-semibold text-amber-600 font-mono">v2.4.1 (OTA)</span></div>
                   <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Power Cell</span> <span className="font-semibold text-emerald-700 font-mono">3.7V 1000mAh LiFePO4</span></div>
                   <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Est. Battery Life</span> <span className="font-semibold text-slate-800">14.2 Hours</span></div>
                   <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Energy Harvesting</span> <span className="font-medium text-slate-700">Solar Micro-Cell</span></div>
@@ -516,21 +516,21 @@ export default function WorkersPage() {
               </div>
 
               {/* Multi-Gas Sensor Cluster */}
-              <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-[0_8px_20px_rgba(15,23,42,0.05)] hover:shadow-[0_16px_32px_rgba(2,132,199,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 space-y-3">
+              <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-[0_8px_20px_rgba(15,23,42,0.05)] hover:shadow-[0_16px_32px_rgba(217,119,6,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-amber-300 space-y-3">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
                   <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-sky-50 text-sky-600 border border-sky-100">
+                    <div className="p-1.5 rounded-lg bg-amber-50 text-amber-600 border border-amber-100">
                       <Wind className="w-4 h-4" />
                     </div>
                     <span className="font-bold text-slate-900 text-xs">Multi-Gas Sensor Array</span>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-sky-700">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span>
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-amber-700">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                     Calibrated
                   </span>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">H₂S Elec. Node</span> <span className="font-semibold text-sky-700 font-mono">{myWorker.h2s.toFixed(1)} ppm (MQ-136)</span></div>
+                  <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">H₂S Elec. Node</span> <span className="font-semibold text-amber-700 font-mono">{myWorker.h2s.toFixed(1)} ppm (MQ-136)</span></div>
                   <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Methane CH₄</span> <span className="font-semibold text-slate-800 font-mono">0.04% VOL</span></div>
                   <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Carbon Monoxide</span> <span className="font-semibold text-slate-800 font-mono">2.0 ppm</span></div>
                   <div className="flex justify-between items-center"><span className="text-slate-500 font-medium">Oxygen Concentration</span> <span className="font-semibold text-emerald-700 font-mono">20.9% (Optimal)</span></div>
@@ -568,7 +568,7 @@ export default function WorkersPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2">
-                  <Radio className="w-4 h-4 text-sky-600" />
+                  <Radio className="w-4 h-4 text-amber-600" />
                   Telemetry Packet Stream & Calibration Logs
                 </h3>
                 <p className="text-[11px] text-slate-500 mt-0.5">Live incoming sensor payloads, signal strength & hardware verification</p>
@@ -595,7 +595,7 @@ export default function WorkersPage() {
                   <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
                     <tr className="hover:bg-slate-50/60 transition-colors">
                       <td className="py-3 px-4 text-slate-500 font-medium">Just now</td>
-                      <td className="py-3 px-4 font-bold text-sky-700">MQ-136 (H₂S)</td>
+                      <td className="py-3 px-4 font-bold text-amber-700">MQ-136 (H₂S)</td>
                       <td className="py-3 px-4 font-mono text-slate-500 text-[11px]">0x03E8 / 1.8V ADC</td>
                       <td className="py-3 px-4 font-bold text-slate-900 font-mono">{myWorker.h2s.toFixed(1)} ppm</td>
                       <td className="py-3 px-4 font-mono text-purple-700 font-semibold">{myWorker.loraRSSI} dBm</td>
@@ -634,13 +634,13 @@ export default function WorkersPage() {
                     </tr>
                     <tr className="hover:bg-slate-50/60 transition-colors">
                       <td className="py-3 px-4 text-slate-500 font-medium">40s ago</td>
-                      <td className="py-3 px-4 font-bold text-indigo-600">DW1000 (UWB)</td>
+                      <td className="py-3 px-4 font-bold text-orange-600">DW1000 (UWB)</td>
                       <td className="py-3 px-4 font-mono text-slate-500 text-[11px]">TOF Anchor #4 42.5m</td>
                       <td className="py-3 px-4 font-bold text-slate-900 font-mono">({myWorker.uwbX}m, {myWorker.uwbY}m)</td>
                       <td className="py-3 px-4 font-mono text-purple-700 font-semibold">{myWorker.loraRSSI} dBm</td>
                       <td className="py-3 px-4">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-700">
-                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-orange-700">
+                          <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
                           Position Sync
                         </span>
                       </td>
@@ -656,7 +656,7 @@ export default function WorkersPage() {
         <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-sky-50 text-sky-600 border border-sky-100">
+              <div className="p-1.5 rounded-lg bg-amber-50 text-amber-600 border border-amber-100">
                 <Activity className="w-4 h-4" />
               </div>
               <div>
@@ -671,10 +671,10 @@ export default function WorkersPage() {
             <div className="space-y-1.5 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
               <div className="flex justify-between items-center text-xs">
                 <span className="font-semibold text-slate-700">H₂S Cumulative Dose</span>
-                <span className="font-mono font-bold text-sky-700">1.8 ppm / 10.0 ppm Limit</span>
+                <span className="font-mono font-bold text-amber-700">1.8 ppm / 10.0 ppm Limit</span>
               </div>
               <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-                <div className="bg-sky-500 h-2 rounded-full" style={{ width: '18%' }}></div>
+                <div className="bg-amber-500 h-2 rounded-full" style={{ width: '18%' }}></div>
               </div>
               <div className="flex justify-between text-[10px] text-slate-500">
                 <span>Safe Operational Level</span>
@@ -720,7 +720,7 @@ export default function WorkersPage() {
   return (
     <div className="space-y-8 pb-12">
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-gradient-to-r from-sky-50 via-slate-50 to-emerald-50 rounded-3xl border border-[#BAE6FD]/60 shadow-xs">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-gradient-to-r from-amber-50 via-slate-50 to-emerald-50 rounded-3xl border border-[#FDE68A]/60 shadow-xs">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 flex-shrink-0 shadow-xs">
             <Users className="w-6 h-6" />
@@ -745,7 +745,7 @@ export default function WorkersPage() {
 
 
       {/* Combined Unified Personnel Database & Live Telemetry Master Register */}
-      <Card padding="lg" className="bg-white border-[#E3EAF5] shadow-xs space-y-5">
+      <Card padding="lg" className="bg-white border-[#EDE4D6] shadow-xs space-y-5">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-slate-100">
           <SectionHeader
             title="Personnel Database Records & Live Telemetry Register"
@@ -763,14 +763,14 @@ export default function WorkersPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search name, ID, zone, jacket..."
-                className="pl-9 pr-4 py-2 bg-slate-50 rounded-xl text-xs text-[#0F172A] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] shadow-2xs w-full sm:w-64"
+                className="pl-9 pr-4 py-2 bg-slate-50 rounded-xl text-xs text-[#0F172A] border border-[#EDE4D6] focus:outline-none focus:border-[#D97706] shadow-2xs w-full sm:w-64"
               />
             </div>
 
             <select
               value={statusFilter}
               onChange={(e: any) => setStatusFilter(e.target.value)}
-              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-50 border border-[#E3EAF5] text-[#0F172A] focus:outline-none shadow-2xs cursor-pointer"
+              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-50 border border-[#EDE4D6] text-[#0F172A] focus:outline-none shadow-2xs cursor-pointer"
             >
               <option value="all">All Status ({dbWorkers.length})</option>
               <option value="online">Normal Safe</option>
@@ -783,7 +783,7 @@ export default function WorkersPage() {
         {/* Unified Table */}
         <div className="overflow-x-auto rounded-2xl border border-slate-200/80">
           <table className="w-full text-left text-xs text-[#0F172A]">
-            <thead className="bg-[#F8FAFC] text-[#64748B] font-bold uppercase tracking-wider text-[10px] border-b border-[#E3EAF5]">
+            <thead className="bg-[#F8FAFC] text-[#64748B] font-bold uppercase tracking-wider text-[10px] border-b border-[#EDE4D6]">
               <tr>
                 <th className="p-3.5">Worker Identity & ID</th>
                 <th className="p-3.5">Role & Zone</th>
@@ -794,11 +794,11 @@ export default function WorkersPage() {
                 <th className="p-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E3EAF5]">
+            <tbody className="divide-y divide-[#EDE4D6]">
               {filteredDB.map((worker) => (
                 <tr
                   key={worker.id}
-                  className="hover:bg-sky-50/50 transition-colors cursor-pointer group"
+                  className="hover:bg-amber-50/50 transition-colors cursor-pointer group"
                   onClick={() => setSelectedWorkerId(worker.id)}
                 >
                   {/* Worker Identity */}
@@ -813,7 +813,7 @@ export default function WorkersPage() {
                       <div>
                         <div className="font-bold text-[#0F172A] flex items-center gap-1.5 text-sm">
                           <span>{worker.name}</span>
-                          <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-sky-50 text-[#0284C7] border border-sky-200">
+                          <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-[#D97706] border border-amber-200">
                             {worker.id}
                           </span>
                         </div>
@@ -825,7 +825,7 @@ export default function WorkersPage() {
                   {/* Role & Sector */}
                   <td className="p-3.5">
                     <div className="font-bold text-slate-800">{worker.role}</div>
-                    <div className="text-[11px] text-[#0284C7] font-semibold flex items-center gap-1 mt-0.5">
+                    <div className="text-[11px] text-[#D97706] font-semibold flex items-center gap-1 mt-0.5">
                       <MapPin className="w-3 h-3 flex-shrink-0" />
                       <span>{worker.zone}</span>
                     </div>
@@ -902,7 +902,7 @@ export default function WorkersPage() {
                           e.stopPropagation();
                           setSelectedWorkerId(worker.id);
                         }}
-                        className="px-3 py-1.5 text-[11px] font-bold rounded-xl bg-sky-50 hover:bg-[#0284C7] text-[#0284C7] hover:text-white border border-sky-200 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                        className="px-3 py-1.5 text-[11px] font-bold rounded-xl bg-amber-50 hover:bg-[#D97706] text-[#D97706] hover:text-white border border-amber-200 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         <span>Slidebar</span>
@@ -929,8 +929,8 @@ export default function WorkersPage() {
       {/* Add New Worker Modal Form */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-[#E3EAF5] space-y-5 animate-in fade-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E3EAF5]">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-[#EDE4D6] space-y-5 animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between pb-3 border-b border-[#EDE4D6]">
               <div className="flex items-center gap-2">
                 <UserPlus className="w-5 h-5 text-emerald-600" />
                 <h2 className="text-lg font-black text-[#0F172A]">Register New Worker to Database</h2>
@@ -953,7 +953,7 @@ export default function WorkersPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Ramesh Kumar"
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                   />
                 </div>
 
@@ -965,7 +965,7 @@ export default function WorkersPage() {
                     value={formData.id}
                     onChange={(e) => setFormData({ ...formData, id: e.target.value })}
                     placeholder="e.g. WKR-107"
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                   />
                 </div>
               </div>
@@ -978,7 +978,7 @@ export default function WorkersPage() {
                     required
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                   />
                 </div>
 
@@ -990,7 +990,7 @@ export default function WorkersPage() {
                     value={formData.jacketId}
                     onChange={(e) => setFormData({ ...formData, jacketId: e.target.value })}
                     placeholder="e.g. SJ-020"
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                   />
                 </div>
               </div>
@@ -1001,7 +1001,7 @@ export default function WorkersPage() {
                   <select
                     value={formData.zone}
                     onChange={(e) => setFormData({ ...formData, zone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                   >
                     <option value="Deep Incline Shaft 4">Deep Incline Shaft 4</option>
                     <option value="Shaft 2 Tunnel Junction">Shaft 2 Tunnel Junction</option>
@@ -1016,7 +1016,7 @@ export default function WorkersPage() {
                   <select
                     value={formData.bloodGroup}
                     onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                   >
                     <option value="A+">A+</option>
                     <option value="A-">A-</option>
@@ -1038,7 +1038,7 @@ export default function WorkersPage() {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                   />
                 </div>
 
@@ -1049,7 +1049,7 @@ export default function WorkersPage() {
                     required
                     value={formData.emergencyContact}
                     onChange={(e) => setFormData({ ...formData, emergencyContact: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                   />
                 </div>
               </div>
@@ -1060,11 +1060,11 @@ export default function WorkersPage() {
                   type="text"
                   value={formData.medicalConditions}
                   onChange={(e) => setFormData({ ...formData, medicalConditions: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#0284C7]"
+                  className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#D97706]"
                 />
               </div>
 
-              <div className="pt-3 border-t border-[#E3EAF5] flex items-center justify-end gap-2">
+              <div className="pt-3 border-t border-[#EDE4D6] flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
@@ -1104,7 +1104,7 @@ export default function WorkersPage() {
                   <div>
                     <div className="flex items-center gap-2">
                       <h2 className="text-base font-black tracking-tight text-white">{selectedWorker.name}</h2>
-                      <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">
+                      <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/30">
                         {selectedWorker.id}
                       </span>
                     </div>
@@ -1161,7 +1161,7 @@ export default function WorkersPage() {
                   <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs">
                     <div className="flex items-center justify-between text-slate-500 mb-1">
                       <span className="text-[10px] font-bold uppercase">H₂S Gas</span>
-                      <Wind className="w-3.5 h-3.5 text-sky-500" />
+                      <Wind className="w-3.5 h-3.5 text-amber-500" />
                     </div>
                     <div className={`text-base font-black font-mono ${selectedWorker.h2s > 10 ? 'text-rose-600' : 'text-slate-900'}`}>
                       {selectedWorker.h2s.toFixed(1)} <span className="text-[10px] font-normal text-slate-500">ppm</span>
@@ -1243,7 +1243,7 @@ export default function WorkersPage() {
 
                 <Link
                   href="/analysis"
-                  className="px-4 py-2 rounded-xl text-xs font-extrabold bg-[#0284C7] hover:bg-[#0369A1] text-white transition-colors flex items-center gap-1.5 shadow-xs"
+                  className="px-4 py-2 rounded-xl text-xs font-extrabold bg-[#D97706] hover:bg-[#B45309] text-white transition-colors flex items-center gap-1.5 shadow-xs"
                 >
                   <Activity className="w-3.5 h-3.5" />
                   <span>View 24h Analysis</span>

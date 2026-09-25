@@ -39,7 +39,7 @@ function shade(hex: string, amount: number): string {
 }
 
 const SKIN_TONES = ['#F1C27D', '#E0AC69', '#D19A62', '#C68642', '#A86B3C', '#8D5524'];
-const BACKDROPS = ['#E0F2FE', '#DCFCE7', '#FEF3C7', '#EDE9FE', '#FFE4E6', '#CCFBF1'];
+const BACKDROPS = ['#FEF3C7', '#DCFCE7', '#FEF3C7', '#EDE9FE', '#FFE4E6', '#CCFBF1'];
 const HAIR_COLORS = ['#1F1A17', '#2B211C', '#3B2A20'];
 const WHITE_HELMET_ROLES = /inspector|rescue|supervisor|command|controller/i;
 
@@ -125,7 +125,7 @@ export function Avatar({ name, role, size = 'md', status, className = '' }: Avat
       <div
         className={`
           flex items-center justify-center rounded-full overflow-hidden
-          select-none border border-[#BAE6FD] transition-transform
+          select-none border border-[#FDE68A] transition-transform
           ${sizeClasses}
           ${status ? ringClasses[status] : ''}
           ${className}

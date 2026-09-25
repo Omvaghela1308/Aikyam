@@ -25,8 +25,8 @@ import { getWorkerLevel, MY_WORKER_ID } from '@/lib/mine-levels';
 const MineMap3D = dynamic(() => import('@/components/three/MineMap3D'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 text-sky-400 gap-3">
-      <div className="w-10 h-10 border-4 border-sky-500 border-t-transparent rounded-full animate-spin" />
+    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 text-amber-400 gap-3">
+      <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
       <span className="text-xs font-mono font-bold tracking-wider">LOADING 3D SUBTERRANEAN MINE SCENE...</span>
     </div>
   ),
@@ -100,10 +100,10 @@ export default function SubterraneanWorkerMap({
   return (
     <Card padding="none" className="overflow-hidden border-slate-200/90 bg-white shadow-lg rounded-3xl">
       {/* Map Header Toolbar */}
-      <div className="p-5 bg-gradient-to-r from-sky-50 via-slate-50 to-indigo-50 text-slate-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200/80">
+      <div className="p-5 bg-gradient-to-r from-amber-50 via-slate-50 to-orange-50 text-slate-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200/80">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-sky-100 text-sky-600 border border-sky-200">
+            <div className="p-1.5 rounded-lg bg-amber-100 text-amber-600 border border-amber-200">
               <Layers3 className="w-5 h-5 animate-pulse" />
             </div>
             <h2 className="text-base sm:text-lg font-black tracking-tight">{title}</h2>
@@ -125,7 +125,7 @@ export default function SubterraneanWorkerMap({
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              <span className={`w-2 h-2 rounded-full ${activeLevelIndex === lvl.id ? 'bg-sky-400 animate-ping' : 'bg-slate-300'}`} />
+              <span className={`w-2 h-2 rounded-full ${activeLevelIndex === lvl.id ? 'bg-amber-400 animate-ping' : 'bg-slate-300'}`} />
               <span>{lvl.name} ({lvl.depth})</span>
             </button>
           ))}
@@ -139,8 +139,8 @@ export default function SubterraneanWorkerMap({
         <div className="flex flex-wrap items-center justify-between gap-2 z-30 pointer-events-none [&>*]:pointer-events-auto">
           {/* Active Depth Focus Pill */}
           <div className="flex items-center gap-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-900 shadow-md">
-            <Compass className="w-4 h-4 text-sky-600" />
-            <span>Active Depth Focus: <strong className="text-sky-700 font-mono">{currentLevel.name} ({currentLevel.depth})</strong></span>
+            <Compass className="w-4 h-4 text-amber-600" />
+            <span>Active Depth Focus: <strong className="text-amber-700 font-mono">{currentLevel.name} ({currentLevel.depth})</strong></span>
           </div>
 
           {/* View Toolbar Controls */}
@@ -150,7 +150,7 @@ export default function SubterraneanWorkerMap({
               onClick={() => setIs3dStackedView(!is3dStackedView)}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-colors cursor-pointer flex items-center gap-1.5 ${
                 is3dStackedView
-                  ? 'bg-sky-600 text-white border-sky-600 shadow-xs'
+                  ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
                   : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
               }`}
             >
@@ -206,14 +206,14 @@ export default function SubterraneanWorkerMap({
 
         {/* How to move the view; fades after the first touch or a few seconds */}
         <div className={`absolute left-1/2 -translate-x-1/2 bottom-24 sm:bottom-20 z-20 pointer-events-none transition-opacity duration-700 ${showHint ? 'opacity-100' : 'opacity-0'} flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/70 backdrop-blur-sm border border-white/10 text-[11px] font-semibold text-slate-200 whitespace-nowrap`}>
-          <Hand className="w-3.5 h-3.5 text-sky-300" />
+          <Hand className="w-3.5 h-3.5 text-amber-300" />
           <span className="hidden sm:inline">Drag to rotate &amp; tilt · Scroll to zoom · Right-drag to pan</span>
           <span className="sm:hidden">Drag to rotate · Pinch to zoom</span>
         </div>
 
         {/* Selected Worker Info Overlay Card */}
         {selectedWorker && (
-          <div className="absolute top-16 left-6 right-6 z-40 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-sky-300 text-slate-900 shadow-2xl flex items-center justify-between animate-in fade-in duration-200 pointer-events-auto">
+          <div className="absolute top-16 left-6 right-6 z-40 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-amber-300 text-slate-900 shadow-2xl flex items-center justify-between animate-in fade-in duration-200 pointer-events-auto">
             <div className="flex items-center gap-3.5">
               <Avatar
                 name={selectedWorker.name}
@@ -224,12 +224,12 @@ export default function SubterraneanWorkerMap({
               <div>
                 <div className="flex items-center gap-2">
                   <h4 className="font-black text-sm text-slate-900">{selectedWorker.name}</h4>
-                  <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">
+                  <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">
                     Jacket {selectedWorker.jacketId}
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-500 mt-0.5">
-                  {selectedWorker.role} • Zone: <strong className="text-slate-800">{selectedWorker.zone}</strong> • Level: <strong className="font-mono text-sky-600">{currentLevel.depth}</strong>
+                  {selectedWorker.role} • Zone: <strong className="text-slate-800">{selectedWorker.zone}</strong> • Level: <strong className="font-mono text-amber-600">{currentLevel.depth}</strong>
                 </p>
               </div>
             </div>
@@ -237,7 +237,7 @@ export default function SubterraneanWorkerMap({
             <div className="flex items-center gap-4 text-xs font-mono font-bold">
               <div className="text-right">
                 <span className="text-[10px] text-slate-400 uppercase block font-sans">Live Telemetry</span>
-                <span className="text-sky-600 font-bold">{selectedWorker.h2s.toFixed(1)} ppm H₂S</span> | <span className="text-rose-600 font-bold">{selectedWorker.heartRate} bpm</span> | <span className="text-emerald-600 font-bold">⚡ {selectedWorker.battery}%</span>
+                <span className="text-amber-600 font-bold">{selectedWorker.h2s.toFixed(1)} ppm H₂S</span> | <span className="text-rose-600 font-bold">{selectedWorker.heartRate} bpm</span> | <span className="text-emerald-600 font-bold">⚡ {selectedWorker.battery}%</span>
               </div>
               <button
                 onClick={() => setSelectedPin(null)}
@@ -266,9 +266,9 @@ export default function SubterraneanWorkerMap({
             </span>
           </div>
 
-          <div className="flex items-center gap-3 text-[11px] font-mono text-sky-700 font-bold">
+          <div className="flex items-center gap-3 text-[11px] font-mono text-amber-700 font-bold">
             <span className="flex items-center gap-1">
-              <Wifi className="w-3.5 h-3.5 text-sky-600" />
+              <Wifi className="w-3.5 h-3.5 text-amber-600" />
               Multi-Level 3D Mesh Anchors (-74 dBm)
             </span>
           </div>
@@ -280,15 +280,15 @@ export default function SubterraneanWorkerMap({
         <div className="p-4 sm:p-5 border-t border-slate-200/80 space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h3 className="text-sm font-black text-slate-900 flex items-center gap-2">
-              <Users className="w-4 h-4 text-sky-600" />
+              <Users className="w-4 h-4 text-amber-600" />
               Workers near you
-              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
                 {levelDetails[myLevel].name} ({levelDetails[myLevel].depth})
               </span>
             </h3>
             <button
               onClick={() => focusWorker(me.id, myLevel)}
-              className="px-3 py-1.5 rounded-full text-xs font-bold bg-sky-600 hover:bg-sky-700 text-white transition-colors cursor-pointer flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-full text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white transition-colors cursor-pointer flex items-center gap-1.5"
             >
               <MapPin className="w-3.5 h-3.5" />
               Show me on map
@@ -307,7 +307,7 @@ export default function SubterraneanWorkerMap({
                     key={w.id}
                     onClick={() => focusWorker(w.id, myLevel)}
                     className={`flex items-center gap-3 p-2.5 rounded-2xl border text-left transition-colors cursor-pointer ${
-                      selectedPin === w.id ? 'bg-sky-50 border-sky-300' : 'bg-white border-slate-200 hover:bg-slate-50'
+                      selectedPin === w.id ? 'bg-amber-50 border-amber-300' : 'bg-white border-slate-200 hover:bg-slate-50'
                     }`}
                   >
                     <Avatar

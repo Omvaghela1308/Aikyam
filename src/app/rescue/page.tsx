@@ -210,7 +210,7 @@ export default function RescueDashboardPage() {
   return (
     <div className="space-y-8 pb-12">
       {/* Header Banner */}
-      <div className="p-6 bg-gradient-to-r from-rose-900 via-slate-900 to-sky-900 rounded-3xl text-white shadow-lg border border-rose-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="p-6 bg-gradient-to-r from-rose-900 via-slate-900 to-amber-900 rounded-3xl text-white shadow-lg border border-rose-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-rose-500/20 border border-rose-400/40 flex items-center justify-center text-rose-400 flex-shrink-0 animate-pulse">
             <LifeBuoy className="w-8 h-8" />
@@ -230,7 +230,7 @@ export default function RescueDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Card 2: Active Emergency SOS Signals */}
-        <Card variant="interactive" padding="md" className="bg-white border-[#E3EAF5]">
+        <Card variant="interactive" padding="md" className="bg-white border-[#EDE4D6]">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-bold text-[#0F172A] flex items-center gap-2">
               <ShieldAlert className="w-4 h-4 text-amber-500" />
@@ -272,13 +272,13 @@ export default function RescueDashboardPage() {
         </Card>
 
         {/* Card 3: Rescue Command Dispatch Hotlines */}
-        <Card variant="interactive" padding="md" className="bg-white border-[#E3EAF5]">
+        <Card variant="interactive" padding="md" className="bg-white border-[#EDE4D6]">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-bold text-[#0F172A] flex items-center gap-2">
-              <PhoneCall className="w-4 h-4 text-[#0284C7]" />
+              <PhoneCall className="w-4 h-4 text-[#D97706]" />
               Emergency Dispatch Hotline
             </h3>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 text-[#0284C7] font-bold">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-50 text-[#D97706] font-bold">
               24/7 Monitored
             </span>
           </div>
@@ -289,7 +289,7 @@ export default function RescueDashboardPage() {
                 <div className="font-bold text-[#0F172A]">Central Surface Base</div>
                 <div className="text-[10px] text-[#64748B]">Direct Radio Channel 4 (462.5625 MHz)</div>
               </div>
-              <span className="font-mono font-bold text-[#0284C7]">Ext #401</span>
+              <span className="font-mono font-bold text-[#D97706]">Ext #401</span>
             </div>
 
             <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between">
@@ -297,7 +297,7 @@ export default function RescueDashboardPage() {
                 <div className="font-bold text-[#0F172A]">Shaft 4 Medical Station</div>
                 <div className="text-[10px] text-[#64748B]">Trauma & Hyperbaric Chamber</div>
               </div>
-              <span className="font-mono font-bold text-[#0284C7]">Ext #911</span>
+              <span className="font-mono font-bold text-[#D97706]">Ext #911</span>
             </div>
           </div>
         </Card>
@@ -313,7 +313,7 @@ export default function RescueDashboardPage() {
       {/* Rescue Team Personnel Section */}
       <div className="space-y-6">
         {/* Simple Clean Header Container */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 bg-white rounded-2xl border border-[#E3EAF5] shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 bg-white rounded-2xl border border-[#EDE4D6] shadow-xs">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center flex-shrink-0">
               <LifeBuoy className="w-5 h-5" />
@@ -341,7 +341,7 @@ export default function RescueDashboardPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search personnel, role, ID..."
-              className="w-full pl-9 pr-4 py-2 bg-[#F8FAFC] rounded-xl text-xs font-medium text-[#0F172A] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] focus:bg-white shadow-2xs transition-colors"
+              className="w-full pl-9 pr-4 py-2 bg-[#F8FAFC] rounded-xl text-xs font-medium text-[#0F172A] border border-[#EDE4D6] focus:outline-none focus:border-[#D97706] focus:bg-white shadow-2xs transition-colors"
             />
           </div>
         </div>
@@ -353,7 +353,7 @@ export default function RescueDashboardPage() {
               key={member.id}
               variant="interactive"
               padding="md"
-              className="bg-white border-[#E3EAF5] shadow-xs space-y-3 cursor-pointer hover:border-rose-400 hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-white border-[#EDE4D6] shadow-xs space-y-3 cursor-pointer hover:border-rose-400 hover:shadow-md transition-all flex flex-col justify-between"
               onClick={() => setSelectedRescuerId(member.id)}
             >
               <div className="space-y-3">
@@ -377,11 +377,11 @@ export default function RescueDashboardPage() {
                 </div>
 
                 {/* Sector & Telemetry Summary Box */}
-                <div className="bg-[#F8FAFC] p-2.5 rounded-xl border border-[#E3EAF5] grid grid-cols-2 gap-2 text-xs">
+                <div className="bg-[#F8FAFC] p-2.5 rounded-xl border border-[#EDE4D6] grid grid-cols-2 gap-2 text-xs">
                   <div>
                     <span className="text-[10px] text-[#64748B] block font-medium">Sector & Depth</span>
                     <span className="font-bold text-[#0F172A] truncate block">{member.zone}</span>
-                    <span className="text-[10px] text-[#0284C7] font-mono block">{member.depth}</span>
+                    <span className="text-[10px] text-[#D97706] font-mono block">{member.depth}</span>
                   </div>
                   <div>
                     <span className="text-[10px] text-[#64748B] block font-medium">SCBA & Battery</span>
@@ -400,7 +400,7 @@ export default function RescueDashboardPage() {
               </div>
 
               {/* Footer */}
-              <div className="pt-2 border-t border-[#E3EAF5] flex items-center justify-between text-xs">
+              <div className="pt-2 border-t border-[#EDE4D6] flex items-center justify-between text-xs">
                 <span className="text-[#64748B] font-mono text-[11px]">{member.phone}</span>
                 <button
                   type="button"
@@ -488,7 +488,7 @@ export default function RescueDashboardPage() {
                   <div className="text-left sm:text-right font-mono text-xs text-slate-700 bg-white/80 px-3 py-1.5 rounded-xl border border-black/5">
                     <span className="text-[10px] text-slate-400 block uppercase font-bold">Sector</span>
                     <span className="font-bold text-[#0F172A]">{selectedRescuer.zone}</span>
-                    <span className="text-[10px] text-[#0284C7] block font-semibold">{selectedRescuer.depth}</span>
+                    <span className="text-[10px] text-[#D97706] block font-semibold">{selectedRescuer.depth}</span>
                   </div>
                 </div>
 
@@ -508,7 +508,7 @@ export default function RescueDashboardPage() {
 
                   <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-200/60">
                     <div
-                      className="bg-gradient-to-r from-cyan-500 to-sky-600 h-full rounded-full transition-all"
+                      className="bg-gradient-to-r from-cyan-500 to-amber-600 h-full rounded-full transition-all"
                       style={{ width: selectedRescuer.o2Tank.split('%')[0] + '%' }}
                     />
                   </div>
@@ -525,7 +525,7 @@ export default function RescueDashboardPage() {
                     </div>
                     <div>
                       <span className="text-[10px] text-slate-400 block font-medium">Mesh RSSI</span>
-                      <span className="font-mono font-bold text-[#0284C7]">{selectedRescuer.meshSignal.split(' ')[0]}</span>
+                      <span className="font-mono font-bold text-[#D97706]">{selectedRescuer.meshSignal.split(' ')[0]}</span>
                     </div>
                   </div>
                 </div>
@@ -560,7 +560,7 @@ export default function RescueDashboardPage() {
                 {/* 4. Assigned Emergency Tools & Equipment */}
                 <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
                   <div className="flex items-center gap-2">
-                    <HardHat className="w-4 h-4 text-[#0284C7]" />
+                    <HardHat className="w-4 h-4 text-[#D97706]" />
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
                       Assigned Gear & Tools
                     </span>
