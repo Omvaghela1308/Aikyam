@@ -66,16 +66,6 @@ export default function AllDayAnalysisPage() {
       {/* WORKER ROLE: Individual Worker All-Day Detailed Analysis */}
       {role === 'Worker' ? (
         <div className="space-y-6">
-          {/* Worker Personal Header (Clean Light Header) */}
-          <div className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Avatar name={myWorker.name} role={myWorker.role} size="lg" status={myWorker.status === 'online' ? 'safe' : myWorker.status} />
-              <div>
-                <h2 className="text-xl font-bold text-slate-900">{myWorker.name}</h2>
-              </div>
-            </div>
-          </div>
-
           {/* Individual Shift Metric Summaries */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <Card variant="interactive" padding="md" className="bg-white border-[#E3EAF5]">
