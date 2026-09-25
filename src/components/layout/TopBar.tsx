@@ -34,6 +34,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
   const { role, openLoginModal, logout, isLoggedIn } = useRole();
   const { alerts, stats, physicalJacket, simulateJacketPacket } = useTelemetry();
   const [searchValue, setSearchValue] = useState('');
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [jacketModalOpen, setJacketModalOpen] = useState(false);
   const [sosPopupOpen, setSosPopupOpen] = useState(false);
@@ -68,12 +69,12 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
 
   return (
     <>
-      <header className="h-20 flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-transparent">
+      <header className="h-20 flex items-center justify-between gap-2 px-3 sm:px-6 lg:px-8 bg-transparent">
         {/* Left: Mobile Toggle + Breadcrumbs */}
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-3 min-w-0 flex-shrink-0 sm:flex-shrink">
           <button
             onClick={onOpenMobile}
-            className="lg:hidden p-2 rounded-xl text-[#475569] hover:text-[#0284C7] hover:bg-white border border-[#E3EAF5] shadow-2xs"
+            className="lg:hidden flex-shrink-0 p-2 rounded-xl bg-white text-[#475569] hover:text-[#0284C7] hover:bg-white border border-[#E3EAF5] shadow-2xs"
             aria-label="Open Navigation Menu"
           >
             <Menu className="w-5 h-5" />
@@ -105,8 +106,9 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
         </div>
 
         {/* Middle: Search Bar (HIDDEN FOR WORKER ROLE) */}
+        {/* On phones the search moves to its own row below the header, see mobileSearchOpen */}
         {role !== 'Worker' ? (
-          <div className="flex-1 max-w-md mx-3 sm:mx-6">
+          <div className="hidden sm:block flex-1 max-w-md mx-3 sm:mx-6">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                 <Search className="h-4 w-4 text-[#94A3B8]" />
@@ -124,11 +126,24 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
             </div>
           </div>
         ) : (
-          <div className="flex-1" />
+          <div className="hidden sm:block flex-1" />
         )}
 
         {/* Right: Connect Jacket Button, Quick SOS Status, Notification Bell, Avatar */}
-        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+          {/* Mobile search toggle */}
+          {role !== 'Worker' && (
+            <button
+              type="button"
+              onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+              className="sm:hidden p-2.5 rounded-full bg-white border border-[#E3EAF5] text-[#475569] hover:text-[#0284C7] transition-all cursor-pointer shadow-2xs"
+              aria-label="Search"
+              aria-expanded={mobileSearchOpen}
+            >
+              <Search className="w-4 h-4" />
+            </button>
+          )}
+
           {/* Connect with Smart Jacket Button (Only for Worker role) */}
           {role === 'Worker' && (
             <button
@@ -155,11 +170,12 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
                 soundManager.playEmergencyAlarm(1.5);
                 setSosPopupOpen(true);
               }}
-              className="px-4 py-2 rounded-full text-xs font-black bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white shadow-md shadow-rose-600/30 border border-rose-400/40 transition-all cursor-pointer flex items-center gap-1.5 animate-pulse transform hover:scale-[1.03] active:scale-[0.97]"
+              className="px-3 sm:px-4 py-2 rounded-full text-xs font-black bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white shadow-md shadow-rose-600/30 border border-rose-400/40 transition-all cursor-pointer flex items-center gap-1.5 animate-pulse transform hover:scale-[1.03] active:scale-[0.97]"
               title="Trigger Instant Emergency SOS Panic Alert across website"
             >
               <ShieldAlert className="w-4 h-4 text-white animate-bounce" />
-              <span>Emergency SOS</span>
+              <span className="hidden sm:inline">Emergency SOS</span>
+              <span className="sm:hidden">SOS</span>
             </button>
           )}
 
@@ -180,7 +196,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
 
             {/* Quick Alert Dropdown */}
             {alertModalOpen && (
-              <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl border border-[#E3EAF5] shadow-xl p-3 z-50 animate-in fade-in zoom-in-95 duration-150">
+              <div className="fixed left-3 right-3 top-20 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-80 bg-white rounded-2xl border border-[#E3EAF5] shadow-xl p-3 z-50 animate-in fade-in zoom-in-95 duration-150">
                 <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#E3EAF5]">
                   <span className="text-xs font-bold text-[#0F172A] flex items-center gap-1.5">
                     <AlertTriangle className="w-3.5 h-3.5 text-[#F59E0B]" />
@@ -242,7 +258,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
           )}
 
           {/* User Profile initials Avatar */}
-          <div className="flex items-center gap-2 pl-1 sm:pl-2 border-l border-[#E3EAF5]">
+          <div className="flex items-center gap-1 sm:gap-2 pl-1.5 sm:pl-2 border-l border-[#E3EAF5]">
             <Avatar
               name={currentUser.name}
               role={role}
@@ -261,7 +277,7 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
             <button
               type="button"
               onClick={logout}
-              className="p-1.5 rounded-xl text-[#64748B] hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-all cursor-pointer ml-1"
+              className="p-1.5 rounded-xl text-[#64748B] hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-all cursor-pointer sm:ml-1"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
@@ -269,6 +285,25 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
           </div>
         </div>
       </header>
+
+      {/* Mobile search row, opened from the search icon */}
+      {role !== 'Worker' && mobileSearchOpen && (
+        <div className="sm:hidden px-3 pb-3 -mt-2">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+              <Search className="h-4 w-4 text-[#94A3B8]" />
+            </div>
+            <input
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search workers, jacket IDs..."
+              autoFocus
+              className="w-full pl-9 pr-4 py-2.5 bg-white rounded-full text-sm text-[#0F172A] placeholder-[#94A3B8] border border-[#E3EAF5] focus:outline-none focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/15 transition-all shadow-2xs"
+            />
+          </div>
+        </div>
+      )}
 
       {/* ESP32 Jacket Connection Modal */}
       <JacketConnectModal
