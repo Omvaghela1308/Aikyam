@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -18,6 +18,8 @@ import {
   MapPin,
   Wind,
   HeartPulse,
+  Clock,
+  Activity,
 } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import { useRole } from '@/context/RoleContext';
@@ -38,6 +40,17 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [jacketModalOpen, setJacketModalOpen] = useState(false);
   const [sosPopupOpen, setSosPopupOpen] = useState(false);
+  const [liveTime, setLiveTime] = useState<string>('');
+
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      setLiveTime(now.toLocaleTimeString());
+    };
+    updateClock();
+    const timer = setInterval(updateClock, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Generate breadcrumb trail
   const getBreadcrumbs = () => {
@@ -64,13 +77,13 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
   // Role-specific current user
   const currentUser = {
     Supervisor: { name: 'Rescuer Command', title: 'Chief Rescue Safety Controller', status: 'safe' as const },
-    Worker: { name: 'Underground Worker', title: 'Smart Jacket Telemetry Active', status: 'safe' as const },
+    Worker: { name: 'Rajesh Kumar', title: 'Smart Jacket Telemetry Active', status: 'safe' as const },
   }[role];
 
   return (
     <>
-      <header className="h-20 flex items-center justify-between gap-2 px-3 sm:px-6 lg:px-8 bg-transparent">
-        {/* Left: Mobile Toggle + Breadcrumbs */}
+      <header className="h-16 sm:h-20 flex items-center justify-between gap-2 px-4 sm:px-6 lg:px-8 bg-white border-b border-[#EDE4D6]/70">
+        {/* Left: Mobile Menu Toggle */}
         <div className="flex items-center gap-3 min-w-0 flex-shrink-0 sm:flex-shrink">
           <button
             onClick={onOpenMobile}
@@ -79,34 +92,9 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
           >
             <Menu className="w-5 h-5" />
           </button>
-
-          {/* Breadcrumb Path */}
-          <nav aria-label="Breadcrumb" className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-[#64748B]">
-            {breadcrumbs.map((crumb, index) => {
-              const isLast = index === breadcrumbs.length - 1;
-              return (
-                <React.Fragment key={crumb.href}>
-                  {index > 0 && <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8]" />}
-                  {isLast ? (
-                    <span className="text-[#0F172A] font-semibold truncate max-w-[200px]">
-                      {crumb.label}
-                    </span>
-                  ) : (
-                    <Link
-                      href={crumb.href}
-                      className="hover:text-[#D97706] transition-colors truncate"
-                    >
-                      {crumb.label}
-                    </Link>
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </nav>
         </div>
 
         {/* Middle: Search Bar (HIDDEN FOR WORKER ROLE) */}
-        {/* On phones the search moves to its own row below the header, see mobileSearchOpen */}
         {role !== 'Worker' ? (
           <div className="hidden sm:block flex-1 max-w-md mx-3 sm:mx-6">
             <div className="relative">
@@ -143,6 +131,58 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
               <Search className="w-4 h-4" />
             </button>
           )}
+
+          {/* Top-Right Corner: Real-time Continuously Monitoring Indicator & Live Clock */}
+          <div className="flex items-center gap-2 sm:gap-2.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-slate-900 text-white border border-slate-700/80 shadow-md">
+            {/* Live Clock with Second-by-Second Accuracy */}
+            <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400 border-r border-slate-700 pr-2 sm:pr-2.5">
+              <Clock className="w-3.5 h-3.5 text-amber-400 animate-spin" style={{ animationDuration: '12s' }} />
+              <span className="tracking-tight">{liveTime || '00:00:00 AM'}</span>
+            </div>
+
+            {/* Continuous Live Hardware Telemetry Monitor Badge */}
+            <button
+              onClick={() => setJacketModalOpen(true)}
+              className="flex items-center gap-1.5 text-xs font-semibold cursor-pointer group transition-all"
+              title={
+                physicalJacket?.isConnected
+                  ? `ESP32 + LoRa Hardware Connected via ${physicalJacket.connectionType?.toUpperCase()}. Last packet: ${physicalJacket.lastPacketTime || 'Just now'}`
+                  : 'Click to connect physical ESP32 DevKit V1 + SX1276 LoRa Hardware'
+              }
+            >
+              {physicalJacket?.isConnected ? (
+                <div className="flex items-center gap-1.5">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+                    <span className="text-[11px] font-black tracking-wide text-emerald-400 group-hover:underline">
+                      LIVE HW RX
+                    </span>
+                  </div>
+                  {physicalJacket.lastPacketTime && (
+                    <span className="hidden md:inline-block text-[10px] font-mono text-emerald-300/90 bg-emerald-950/90 px-1.5 py-0.5 rounded border border-emerald-800/60">
+                      {physicalJacket.lastPacketTime}
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-center gap-1.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Cpu className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="text-[11px] font-bold text-slate-300 group-hover:text-amber-400">
+                      HW CONNECT
+                    </span>
+                  </div>
+                </div>
+              )}
+            </button>
+          </div>
 
           {/* Connect with Smart Jacket Button (Only for Worker role) */}
           {role === 'Worker' && (
@@ -245,43 +285,36 @@ export function TopBar({ onOpenMobile }: TopBarProps) {
             )}
           </div>
 
-          {/* Sign In Button (shown only when logged out) */}
+          {/* Register & Sign In Buttons (shown only when logged out) */}
           {!isLoggedIn && (
-            <button
-              onClick={openLoginModal}
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold text-[#D97706] bg-[#FEF3C7] hover:bg-[#FDE68A] border border-[#FDE68A] transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs hover:scale-[1.02] active:scale-[0.98]"
-              title="Sign In or Switch Role"
-            >
-              <LogIn className="w-3.5 h-3.5 text-[#D97706]" />
-              <span>Sign In / Login</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/register"
+                className="px-3.5 py-1.5 rounded-full text-xs font-extrabold text-slate-950 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 transition-all cursor-pointer flex items-center gap-1.5 shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+                title="Register New Worker or Rescuer Smart Jacket"
+              >
+                <Cpu className="w-3.5 h-3.5 text-slate-950" />
+                <span>Register</span>
+              </Link>
+              <Link
+                href="/login"
+                className="px-3.5 py-1.5 rounded-full text-xs font-bold text-[#D97706] bg-[#FEF3C7] hover:bg-[#FDE68A] border border-[#FDE68A] transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs hover:scale-[1.02] active:scale-[0.98]"
+                title="Sign In to Existing Portal"
+              >
+                <LogIn className="w-3.5 h-3.5 text-[#D97706]" />
+                <span>Sign In</span>
+              </Link>
+            </div>
           )}
 
           {/* User Profile initials Avatar */}
-          <div className="flex items-center gap-1 sm:gap-2 pl-1.5 sm:pl-2 border-l border-[#EDE4D6]">
+          <div className="flex items-center pl-2 border-l border-[#EDE4D6]">
             <Avatar
               name={currentUser.name}
               role={role}
               size="md"
               status={currentUser.status}
             />
-            <div className="hidden md:flex flex-col text-left">
-              <span className="text-xs font-bold text-[#0F172A] leading-tight truncate max-w-[130px]">
-                {currentUser.name}
-              </span>
-              <span className="text-[10px] text-[#64748B] font-medium truncate max-w-[130px]">
-                {currentUser.title}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={logout}
-              className="p-1.5 rounded-xl text-[#64748B] hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-all cursor-pointer sm:ml-1"
-              title="Sign Out"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
           </div>
         </div>
       </header>

@@ -72,7 +72,7 @@ export const initialWorkers: WorkerTelemetry[] = [
   },
   {
     id: 'W1026',
-    name: 'Underground Worker',
+    name: 'Rajesh Kumar',
     jacketId: 'SJ-003',
     role: 'Drill Operator',
     zone: 'Deep Incline Shaft 4',

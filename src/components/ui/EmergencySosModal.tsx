@@ -60,8 +60,8 @@ export default function EmergencySosModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border-2 border-rose-500 overflow-hidden animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
+      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl border-2 border-rose-500 animate-in zoom-in-95 duration-200 my-auto">
         
         {/* Top Emergency Red Flashing Banner */}
         <div className="bg-gradient-to-r from-rose-700 via-red-600 to-rose-800 p-5 text-white flex items-center justify-between shadow-md">

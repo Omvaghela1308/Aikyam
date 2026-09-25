@@ -138,11 +138,16 @@ export function RoleProvider({ children }: { children: ReactNode }) {
     try {
       if (typeof window !== 'undefined') {
         localStorage.removeItem('mineguard_auth');
+        sessionStorage.removeItem('hasSeenLoginIntro');
       }
     } catch (e) {
       console.error('Error removing auth from storage:', e);
     }
-    router.push('/login');
+    if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    } else {
+      router.replace('/');
+    }
   };
 
   return (

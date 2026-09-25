@@ -63,7 +63,7 @@ export function TelemetryProvider({ children }: { children: ReactNode }) {
 
   const [activeSocket, setActiveSocket] = useState<WebSocket | null>(null);
 
-  // Helper to ingest parsed ESP32 JSON data into active workers & alerts
+  // Helper to ingest parsed ESP32 JSON data into active workers, sensors & alerts
   const ingestJacketData = (data: any, rawLine: string) => {
     const timestamp = new Date().toLocaleTimeString();
 
@@ -73,24 +73,58 @@ export function TelemetryProvider({ children }: { children: ReactNode }) {
       lastPacketTime: timestamp,
     }));
 
-    const jacketId = data.jacketId || 'SJ-ESP32-LIVE';
-    const workerName = data.workerName || 'Live ESP32 Wearer';
-    const ch4 = Number(data.ch4 || 0.2);
-    const h2s = Number(data.h2s || 0.5);
-    const co = Number(data.co || 5.0);
-    const heartRate = Number(data.heartRate || 75);
-    const temp = Number(data.temp || 36.8);
-    const battery = Number(data.battery || 95);
-    const sos = Boolean(data.sos);
+    const jacketId = String(data.jacketId || data.jacket_id || data.id || 'SJ-ESP32-LIVE');
+    const workerName = String(data.workerName || data.worker_name || data.name || 'Rajesh Kumar (ESP32 Live)');
 
-    const isCritical = sos || ch4 > 2.5 || h2s > 10 || heartRate > 120;
-    const isWarning = ch4 > 1.2 || h2s >= 5 || heartRate > 100 || heartRate < 55;
+    // Gas Telemetry
+    const h2s = Number(data.h2s ?? data.H2S ?? data.h2s_ppm ?? 0.5);
+    const ch4 = Number(data.ch4 ?? data.CH4 ?? data.methane ?? 0.25);
+    const co = Number(data.co ?? data.CO ?? 4.0);
+
+    // Vitals Telemetry
+    const heartRate = Math.round(Number(data.heartRate ?? data.heart_rate ?? data.hr ?? data.bpm ?? 76));
+    const temp = Number((Number(data.temp ?? data.temperature ?? data.body_temp ?? 36.6)).toFixed(1));
+    const humidity = Math.round(Number(data.humidity ?? data.hum ?? data.rh ?? 68));
+
+    // Environmental & Radiation Telemetry
+    const pm25 = Number((Number(data.pm25 ?? data.pm2_5 ?? data.dust ?? 22.4)).toFixed(1));
+    const radiationCPM = Math.round(Number(data.radiationCPM ?? data.cpm ?? data.rad ?? 20));
+    const radiationUSv = Number((Number(data.radiationUSv ?? data.usv ?? (radiationCPM / 120))).toFixed(2));
+
+    // Power, Network & Positioning Telemetry
+    const battery = Math.round(Number(data.battery ?? data.batt ?? data.battery_level ?? 94));
+    const loraRSSI = Math.round(Number(data.loraRSSI ?? data.rssi ?? -72));
+    const loraSNR = Number((Number(data.loraSNR ?? data.snr ?? 9.5)).toFixed(1));
+    const uwbX = Number((Number(data.uwbX ?? data.x ?? 42.5)).toFixed(1));
+    const uwbY = Number((Number(data.uwbY ?? data.y ?? 118.2)).toFixed(1));
+    
+    const pcmCoolingStatus = data.pcmCoolingStatus || data.cooling || (temp > 38 ? 'Exhausted (28°C)' : temp > 34 ? 'Partially Depleted (25°C)' : 'Active Cooling (18°C)');
+    const sos = Boolean(data.sos ?? data.panic ?? data.emergency ?? false);
+    const colorimetricH2SDetected = Boolean(data.colorimetricH2SDetected ?? data.colorimetric ?? (h2s > 10));
+
+    const isCritical = sos || ch4 > 2.5 || h2s > 10 || heartRate > 120 || temp > 38 || radiationUSv > 0.60;
+    const isWarning = ch4 > 1.2 || h2s >= 5 || heartRate > 100 || heartRate < 55 || temp > 34 || pm25 > 35;
     const status = isCritical ? 'critical' : isWarning ? 'warning' : 'online';
 
     setAllWorkers((prevWorkers) => {
       const existingIdx = prevWorkers.findIndex(
         (w) => w.jacketId === jacketId || w.id === 'W-ESP32-LIVE'
       );
+
+      const existingWorker = prevWorkers[existingIdx];
+      const prevHistory = existingWorker?.history || [];
+
+      const newHistoryPoint = {
+        time: timestamp.slice(0, 5),
+        h2s: h2s,
+        heartRate: heartRate,
+        temperature: temp,
+        humidity: humidity,
+        pm25: pm25,
+        radiationUSv: radiationUSv,
+      };
+
+      const updatedHistory = [...prevHistory, newHistoryPoint].slice(-15);
 
       const liveWorker: WorkerTelemetry = {
         id: 'W-ESP32-LIVE',
@@ -103,19 +137,19 @@ export function TelemetryProvider({ children }: { children: ReactNode }) {
         temperature: temp,
         battery: battery,
         h2s: h2s,
-        humidity: 62,
-        pm25: 12,
-        radiationCPM: 15,
-        radiationUSv: 0.12,
-        loraRSSI: -68,
-        loraSNR: 9.5,
-        uwbX: 18.5,
-        uwbY: 12.4,
-        pcmCoolingStatus: 'Active Cooling (18°C)',
+        humidity: humidity,
+        pm25: pm25,
+        radiationCPM: radiationCPM,
+        radiationUSv: radiationUSv,
+        loraRSSI: loraRSSI,
+        loraSNR: loraSNR,
+        uwbX: uwbX,
+        uwbY: uwbY,
+        pcmCoolingStatus: pcmCoolingStatus as any,
         sosActive: sos,
-        colorimetricH2SDetected: h2s > 10,
+        colorimetricH2SDetected: colorimetricH2SDetected,
         lastPing: timestamp,
-        history: [],
+        history: updatedHistory,
       };
 
       if (existingIdx >= 0) {
@@ -125,6 +159,67 @@ export function TelemetryProvider({ children }: { children: ReactNode }) {
       } else {
         return [liveWorker, ...prevWorkers];
       }
+    });
+
+    // Simultaneously update sensor hardware grid state for real accuracy
+    setSensors((prevSensors) => {
+      return prevSensors.map((sensor) => {
+        if (sensor.id === 'SENS-H2S-E') {
+          return {
+            ...sensor,
+            value: h2s,
+            status: h2s > 10 ? 'critical' : h2s >= 5 ? 'warning' : 'safe',
+            trend: [...sensor.trend.slice(-3), { time: timestamp.slice(0, 5), value: h2s }],
+          };
+        }
+        if (sensor.id === 'SENS-H2S-OPT') {
+          return {
+            ...sensor,
+            value: colorimetricH2SDetected ? 'Positive (Darkened Stain)' : 'Clear (No Stain)',
+            status: colorimetricH2SDetected ? 'critical' : 'safe',
+          };
+        }
+        if (sensor.id === 'SENS-PPG') {
+          return {
+            ...sensor,
+            value: heartRate,
+            status: heartRate > 120 || heartRate < 50 ? 'critical' : heartRate > 100 ? 'warning' : 'safe',
+            trend: [...sensor.trend.slice(-3), { time: timestamp.slice(0, 5), value: heartRate }],
+          };
+        }
+        if (sensor.id === 'SENS-ENV-DHT') {
+          return {
+            ...sensor,
+            value: `${temp}°C / ${humidity}%`,
+            status: temp > 38 ? 'critical' : temp > 34 ? 'warning' : 'safe',
+            trend: [...sensor.trend.slice(-3), { time: timestamp.slice(0, 5), value: temp }],
+          };
+        }
+        if (sensor.id === 'SENS-DUST-PM') {
+          return {
+            ...sensor,
+            value: pm25,
+            status: pm25 > 75 ? 'critical' : pm25 > 35 ? 'warning' : 'safe',
+            trend: [...sensor.trend.slice(-3), { time: timestamp.slice(0, 5), value: pm25 }],
+          };
+        }
+        if (sensor.id === 'SENS-RAD-GM') {
+          return {
+            ...sensor,
+            value: `${radiationUSv} µSv/h (${radiationCPM} CPM)`,
+            status: radiationUSv > 0.6 ? 'critical' : radiationUSv > 0.3 ? 'warning' : 'safe',
+            trend: [...sensor.trend.slice(-3), { time: timestamp.slice(0, 5), value: radiationUSv }],
+          };
+        }
+        if (sensor.id === 'SENS-LOC-UWB') {
+          return {
+            ...sensor,
+            value: `X: ${uwbX}m, Y: ${uwbY}m (Live Fix)`,
+            status: 'safe',
+          };
+        }
+        return sensor;
+      });
     });
 
     if (sos || isCritical) {
@@ -140,7 +235,7 @@ export function TelemetryProvider({ children }: { children: ReactNode }) {
           timestamp: timestamp,
           message: sos
             ? 'Worker pressed physical panic button on ESP32 smart jacket.'
-            : `Methane: ${ch4} PPM | H2S: ${h2s} PPM | HR: ${heartRate} BPM`,
+            : `H2S: ${h2s} PPM | Temp: ${temp}°C | HR: ${heartRate} BPM | PM2.5: ${pm25} µg/m³`,
           acknowledged: false,
         },
         ...prevAlerts,
@@ -265,16 +360,25 @@ export function TelemetryProvider({ children }: { children: ReactNode }) {
 
   // Simulate an ESP32 hardware packet
   const simulateJacketPacket = () => {
+    const radCPM = Math.floor(14 + Math.random() * 16);
     const mockPacket = {
       jacketId: 'SJ-ESP32-LIVE',
-      workerName: 'Live ESP32 Wearer',
-      ch4: Number((Math.random() * 2.5).toFixed(2)),
-      h2s: Number((Math.random() * 8.0).toFixed(2)),
-      co: Number((Math.random() * 15).toFixed(1)),
-      heartRate: Math.floor(65 + Math.random() * 45),
-      temp: Number((36.5 + Math.random()).toFixed(1)),
-      battery: Math.floor(80 + Math.random() * 20),
-      sos: Math.random() > 0.85,
+      workerName: 'Rajesh Kumar (Live ESP32)',
+      h2s: Number((Math.random() * 7.5).toFixed(2)),
+      ch4: Number((0.15 + Math.random() * 0.6).toFixed(2)),
+      co: Number((2.0 + Math.random() * 5.0).toFixed(1)),
+      heartRate: Math.floor(68 + Math.random() * 42),
+      temp: Number((36.2 + Math.random() * 2.1).toFixed(1)),
+      humidity: Math.floor(62 + Math.random() * 20),
+      pm25: Number((16.0 + Math.random() * 30.0).toFixed(1)),
+      radiationCPM: radCPM,
+      radiationUSv: Number((radCPM / 120).toFixed(2)),
+      battery: Math.floor(84 + Math.random() * 15),
+      uwbX: Number((24.0 + Math.random() * 40.0).toFixed(1)),
+      uwbY: Number((85.0 + Math.random() * 80.0).toFixed(1)),
+      rssi: Math.floor(-82 + Math.random() * 20),
+      snr: Number((8.0 + Math.random() * 4.0).toFixed(1)),
+      sos: Math.random() > 0.88,
     };
     ingestJacketData(mockPacket, JSON.stringify(mockPacket));
   };

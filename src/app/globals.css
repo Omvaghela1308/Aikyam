@@ -1,18 +1,41 @@
 @import "tailwindcss";
 
 :root {
+  --bg-app: #FAF6EF;
+  --bg-surface: #FFFFFF;
+  --bg-sidebar: #FFFFFF;
+  --accent: #F28C0F;
+  --accent-strong: #E86A00;
+  --accent-soft: #FDECC8;
+  --text-primary: #1A1714;
+  --text-muted: #6B635A;
+  --border: rgba(242, 140, 15, 0.18);
+
+  --safe: #16A34A;     --safe-bg: #E9F9EF;
+  --warning: #D97706;  --warning-bg: #FEF6E4;
+  --danger: #DC2626;   --danger-bg: #FDECEC;
+  --info: #7C3AED;     --info-bg: #F3EEFF;
+  --cyan: #0891B2;     --cyan-bg: #E6F8FB;
+
+  --radius-card: 20px;
+  --shadow-3d: 0 1px 0 rgba(255,255,255,0.8) inset,
+               0 10px 24px -8px rgba(120, 72, 10, 0.18),
+               0 2px 6px rgba(0,0,0,0.05);
+  --shadow-3d-hover: 0 1px 0 rgba(255,255,255,0.9) inset,
+                     0 22px 40px -12px rgba(120, 72, 10, 0.28),
+                     0 4px 10px rgba(0,0,0,0.06);
+
+  --bg-header: #1A1714;
+  --bg-card: rgba(20, 17, 14, 0.72);
+  --accent-hover: #D97706;
+
   --primary: #D97706;
   --primary-hover: #B45309;
-  --accent: #F59E0B;
   --soft-blue: #FEF3C7;
   --mine-border: #EDE4D6;
   --mine-canvas: #F7F3EC;
   --heading: #0F172A;
   --muted: #475569;
-
-  --safe: #22C55E;
-  --warning: #F59E0B;
-  --danger: #EF4444;
 
   --pastel-blue-bg: #FEF3C7;
   --pastel-blue-text: #B45309;
@@ -27,21 +50,37 @@
 }
 
 @theme {
+  --color-bg-header: var(--bg-header);
+  --color-bg-card: var(--bg-card);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-border-token: var(--border);
+
+  --color-safe: var(--safe);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
   --color-primary: #D97706;
   --color-primary-hover: #B45309;
-  --color-accent: #F59E0B;
   --color-soft-blue: #FEF3C7;
   --color-mine-border: #EDE4D6;
   --color-mine-canvas: #F7F3EC;
   --color-heading: #0F172A;
   --color-muted: #475569;
 
-  --color-safe: #22C55E;
-  --color-warning: #F59E0B;
-  --color-danger: #EF4444;
-
   --font-inter: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+.hero-glass-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(245, 158, 11, 0.12);
+  color: #FFFFFF;
+  backdrop-filter: blur(16px);
 }
 
 body {
