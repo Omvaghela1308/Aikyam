@@ -26,7 +26,10 @@ export interface PhysicalJacketState {
 }
 
 interface TelemetryContextType {
+  /** Workers scoped to the user's role (a Worker sees only themselves) */
   workers: WorkerTelemetry[];
+  /** Every worker regardless of role, e.g. for showing co-workers on the map */
+  allWorkers: WorkerTelemetry[];
   sensors: HardwareSensor[];
   alerts: SafetyAlert[];
   stats: TelemetryStats;
@@ -392,6 +395,7 @@ export function TelemetryProvider({ children }: { children: ReactNode }) {
     <TelemetryContext.Provider
       value={{
         workers,
+        allWorkers,
         sensors,
         alerts: scopedAlerts,
         stats,

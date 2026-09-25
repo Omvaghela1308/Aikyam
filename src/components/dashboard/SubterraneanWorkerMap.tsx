@@ -12,12 +12,14 @@ import {
   Layers3,
   Layers,
   RotateCcw,
-  Hand
+  Hand,
+  Users
 } from 'lucide-react';
 import Card from '@/components/ui/Card';
 import Avatar from '@/components/ui/Avatar';
 import { useTelemetry } from '@/context/TelemetryContext';
 import { useRole } from '@/context/RoleContext';
+import { getWorkerLevel, MY_WORKER_ID } from '@/lib/mine-levels';
 
 // Dynamic import with SSR disabled for Three.js WebGL canvas
 const MineMap3D = dynamic(() => import('@/components/three/MineMap3D'), {
@@ -41,7 +43,7 @@ export default function SubterraneanWorkerMap({
   subtitle = "Live 3D UWB (±0.4m) depth-stratified tracking across underground mine gallery levels",
   showAllWorkers = true
 }: SubterraneanWorkerMapProps) {
-  const { workers } = useTelemetry();
+  const { workers, allWorkers } = useTelemetry();
   const { role } = useRole();
 
   const [activeLevelIndex, setActiveLevelIndex] = useState<number>(3); // Default Level 3 (-320m)
@@ -65,12 +67,35 @@ export default function SubterraneanWorkerMap({
 
   const currentLevel = levelDetails[activeLevelIndex] || levelDetails[3];
 
-  // Filter workers based on role
-  const displayedWorkers = role === 'Worker' && !showAllWorkers
-    ? workers.filter((w) => w.id === 'W1026' || w.jacketId === 'SJ-003')
+  // Filter workers based on role; with showAllWorkers a Worker also sees their co-workers
+  const displayedWorkers = role === 'Worker'
+    ? showAllWorkers
+      ? allWorkers
+      : workers.filter((w) => w.id === 'W1026' || w.jacketId === 'SJ-003')
     : workers;
 
   const selectedWorker = displayedWorkers.find((w) => w.id === selectedPin) || null;
+
+  // Worker role: find "me" and the co-workers on my level
+  const isWorkerView = role === 'Worker';
+  const myIndex = displayedWorkers.findIndex((w) => w.id === MY_WORKER_ID);
+  const me = isWorkerView && myIndex >= 0 ? displayedWorkers[myIndex] : null;
+  const myLevel = me ? getWorkerLevel(me.id, myIndex) : null;
+  const nearbyWorkers = me
+    ? displayedWorkers.filter((w, i) => w.id !== me.id && getWorkerLevel(w.id, i) === myLevel)
+    : [];
+
+  // Open the map on the worker's own level (adjusted during render once the role is known)
+  const [syncedMyLevel, setSyncedMyLevel] = useState<number | null>(null);
+  if (myLevel !== null && myLevel !== syncedMyLevel) {
+    setSyncedMyLevel(myLevel);
+    setActiveLevelIndex(myLevel);
+  }
+
+  const focusWorker = (id: string, levelIndex: number) => {
+    setActiveLevelIndex(levelIndex);
+    setSelectedPin(id);
+  };
 
   return (
     <Card padding="none" className="overflow-hidden border-slate-200/90 bg-white shadow-lg rounded-3xl">
@@ -173,6 +198,7 @@ export default function SubterraneanWorkerMap({
             resetViewKey={resetViewKey}
             workers={displayedWorkers}
             selectedWorkerId={selectedPin}
+            myWorkerId={me?.id ?? null}
             onSelectWorker={(id) => setSelectedPin(id)}
             onSelectLevel={(lvlIdx) => setActiveLevelIndex(lvlIdx)}
           />
@@ -248,6 +274,70 @@ export default function SubterraneanWorkerMap({
           </div>
         </div>
       </div>
+
+      {/* Worker role: co-workers on the same level */}
+      {me && myLevel !== null && (
+        <div className="p-4 sm:p-5 border-t border-slate-200/80 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-sm font-black text-slate-900 flex items-center gap-2">
+              <Users className="w-4 h-4 text-sky-600" />
+              Workers near you
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+                {levelDetails[myLevel].name} ({levelDetails[myLevel].depth})
+              </span>
+            </h3>
+            <button
+              onClick={() => focusWorker(me.id, myLevel)}
+              className="px-3 py-1.5 rounded-full text-xs font-bold bg-sky-600 hover:bg-sky-700 text-white transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              Show me on map
+            </button>
+          </div>
+
+          {nearbyWorkers.length === 0 ? (
+            <p className="text-xs text-slate-500">No other workers on your level right now.</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {nearbyWorkers.map((w) => {
+                const isSOS = w.sosActive || w.status === 'critical';
+                const statusLabel = isSOS ? 'SOS' : w.status === 'warning' ? 'Warning' : 'Safe';
+                return (
+                  <button
+                    key={w.id}
+                    onClick={() => focusWorker(w.id, myLevel)}
+                    className={`flex items-center gap-3 p-2.5 rounded-2xl border text-left transition-colors cursor-pointer ${
+                      selectedPin === w.id ? 'bg-sky-50 border-sky-300' : 'bg-white border-slate-200 hover:bg-slate-50'
+                    }`}
+                  >
+                    <Avatar
+                      name={w.name}
+                      role={w.role}
+                      size="sm"
+                      status={isSOS ? 'danger' : w.status === 'warning' ? 'warning' : 'safe'}
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 truncate">{w.name}</div>
+                      <div className="text-[11px] text-slate-500 truncate">{w.role} · {w.zone}</div>
+                    </div>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${
+                        isSOS
+                          ? 'bg-rose-100 text-rose-700'
+                          : w.status === 'warning'
+                          ? 'bg-amber-100 text-amber-700'
+                          : 'bg-emerald-100 text-emerald-700'
+                      }`}
+                    >
+                      {statusLabel}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
     </Card>
   );
 }

@@ -6,6 +6,7 @@ import { OrbitControls, Html, Text, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { WorkerTelemetry } from '@/types/telemetry';
+import { getWorkerLevel } from '@/lib/mine-levels';
 
 // Level definitions
 export interface LevelInfo {
@@ -32,6 +33,8 @@ interface MineMap3DProps {
   resetViewKey: number;
   workers: WorkerTelemetry[];
   selectedWorkerId: string | null;
+  /** Logged-in worker, drawn with a "YOU" badge */
+  myWorkerId?: string | null;
   onSelectWorker: (id: string | null) => void;
   onSelectLevel: (levelIndex: number) => void;
 }
@@ -674,6 +677,7 @@ function Worker3DFigure({
   levelIndex,
   is3dStackedView,
   isSelected,
+  isMe,
   isOnActiveLevel,
   onSelect,
   waypointOffset,
@@ -682,6 +686,7 @@ function Worker3DFigure({
   levelIndex: number;
   is3dStackedView: boolean;
   isSelected: boolean;
+  isMe: boolean;
   isOnActiveLevel: boolean;
   onSelect: () => void;
   waypointOffset: number;
@@ -731,7 +736,7 @@ function Worker3DFigure({
         <mesh position={[0, 0.45, 0]} castShadow>
           <cylinderGeometry args={[0.3, 0.35, 0.8, 8]} />
           <meshStandardMaterial
-            color={isSelected ? '#0284c7' : '#f97316'}
+            color={isSelected || isMe ? '#0284c7' : '#f97316'}
             roughness={0.4}
             metalness={0.2}
           />
@@ -763,7 +768,7 @@ function Worker3DFigure({
 
       {/* Drei Floating Circular Avatar Label & Info Badge */}
       <Html position={[0, 1.8, 0]} center>
-        {!isOnActiveLevel && !isSelected ? (
+        {!isOnActiveLevel && !isSelected && !isMe ? (
           // Workers on other levels: just a small status dot so labels don't pile up
           <div
             onClick={(e) => { e.stopPropagation(); onSelect(); }}
@@ -779,10 +784,19 @@ function Worker3DFigure({
             isSelected ? 'scale-125' : 'hover:scale-115'
           }`}
         >
+          {/* "YOU" tag above the logged-in worker */}
+          {isMe && (
+            <div className="mb-0.5 px-1.5 py-px rounded-full bg-sky-500 text-white text-[8px] font-black tracking-wider shadow-md shadow-sky-500/40">
+              YOU
+            </div>
+          )}
+
           {/* Circular Avatar Ring */}
           <div
             className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-[10px] text-white shadow-lg border-2 transition-all ${
-              isSOS
+              isMe && !isSOS
+                ? 'bg-sky-500 border-white ring-4 ring-sky-400/50'
+                : isSOS
                 ? 'bg-rose-600 border-rose-300 ring-4 ring-rose-500/40 animate-bounce'
                 : isWarning
                 ? 'bg-amber-500 border-amber-300'
@@ -813,35 +827,18 @@ export default function MineMap3D({
   resetViewKey,
   workers,
   selectedWorkerId,
+  myWorkerId = null,
   onSelectWorker,
   onSelectLevel,
 }: MineMap3DProps) {
-  // Map workers to specific levels
-  const workerLevelMap: Record<string, number> = {
-    'W1024': 3, // Ramesh Verma -> Level 3
-    'W1025': 2, // Sunil Sharma -> Level 2
-    'W1026': 3, // Manoj Yadav -> Level 3
-    'W1027': 1, // Amit Kumar -> Level 1
-    'W1028': 3, // Dinesh Singh -> Level 3
-    'W1029': 2, // Tarun Das -> Level 2
-    'W1030': 0, // Kamal Mehra -> Surface 0m
-    'W1031': 1, // Uday Waghmare -> Level 1
-    'WKR-101': 1,
-    'WKR-102': 2,
-    'WKR-103': 3,
-    'WKR-104': 3,
-    'WKR-105': 0,
-    'WKR-106': 2,
-  };
-
   // Find selected worker 3D coordinates for camera tracking
+  const selectedIndex = selectedWorkerId ? workers.findIndex((w) => w.id === selectedWorkerId) : -1;
   const selectedWorkerPos = useMemo<[number, number, number] | null>(() => {
     if (!selectedWorkerId) return null;
-    const lvlIdx = workerLevelMap[selectedWorkerId] ?? 3;
-    const lvl = LEVELS[lvlIdx];
+    const lvl = LEVELS[getWorkerLevel(selectedWorkerId, Math.max(selectedIndex, 0))] || LEVELS[3];
     const posY = is3dStackedView ? lvl.yStacked : lvl.yNormal;
     return [0, posY + 1, 0];
-  }, [selectedWorkerId, is3dStackedView]);
+  }, [selectedWorkerId, selectedIndex, is3dStackedView]);
 
   return (
     <div className="w-full h-full relative cursor-grab active:cursor-grabbing select-none touch-none bg-slate-950">
@@ -911,7 +908,7 @@ export default function MineMap3D({
 
         {/* 5. 3D Workers Stratified Across Mine Galleries */}
         {workers.map((w, index) => {
-          const assignedLevel = workerLevelMap[w.id] ?? (index % 4);
+          const assignedLevel = getWorkerLevel(w.id, index);
           return (
             <Worker3DFigure
               key={w.id}
@@ -919,6 +916,7 @@ export default function MineMap3D({
               levelIndex={assignedLevel}
               is3dStackedView={is3dStackedView}
               isSelected={w.id === selectedWorkerId}
+              isMe={w.id === myWorkerId}
               isOnActiveLevel={assignedLevel === activeLevelIndex}
               onSelect={() => onSelectWorker(w.id)}
               waypointOffset={index * 1.57}
