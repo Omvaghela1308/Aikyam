@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import {
   BarChart2,
   Clock,
@@ -18,7 +17,6 @@ import {
   Users,
   ShieldCheck,
   Activity,
-  ArrowLeft,
   Calendar,
   CloudFog,
   Filter
@@ -39,25 +37,17 @@ export default function AllDayAnalysisPage() {
 
   return (
     <div className="space-y-8 pb-12">
-      {/* Top Banner & Navigation Header (Clean Light Banner) */}
-      <div className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <Link
-            href="/dashboard"
-            className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all cursor-pointer border border-slate-200"
-            title="Back to Home Dashboard"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+      {/* Page header, same layout as the Alerts page */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E3EAF5] pb-5">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight">
             Daily Analysis
           </h1>
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-50 p-1.5 rounded-xl border border-slate-200">
-          <Calendar className="w-4 h-4 text-sky-600 ml-2" />
-          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-white text-slate-800 border border-slate-200 shadow-2xs">
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-white text-[#0284C7] border border-[#BAE6FD] shadow-2xs">
+            <Calendar className="w-3.5 h-3.5" />
             Shift: 08:00 AM - 04:00 PM
           </span>
         </div>
