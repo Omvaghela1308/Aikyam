@@ -126,10 +126,22 @@ export function Sidebar({
         `}
       >
         {/* Brand Header */}
-        <div className="h-20 flex items-center justify-between px-4 border-b border-[#E3EAF5]/80">
-          <Link href="/dashboard" className="flex items-center gap-3 overflow-hidden group">
+        {/* Collapsed rail is too narrow for logo + toggle side by side, so they stack */}
+        <div
+          className={`h-20 flex border-b border-[#E3EAF5]/80 ${
+            collapsed
+              ? 'flex-col items-center justify-center gap-1 px-2'
+              : 'items-center justify-between px-4'
+          }`}
+        >
+          {/* Brand only; not a link */}
+          <div className="flex items-center gap-3 overflow-hidden select-none">
             {/* MineGuard SVG Logo */}
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0284C7] to-[#0EA5E9] p-2 flex items-center justify-center shadow-md shadow-sky-500/20 flex-shrink-0 group-hover:scale-105 transition-transform">
+            <div
+              className={`rounded-2xl bg-gradient-to-br from-[#0284C7] to-[#0EA5E9] flex items-center justify-center shadow-md shadow-sky-500/20 flex-shrink-0 ${
+                collapsed ? 'w-9 h-9 p-1.5' : 'w-10 h-10 p-2'
+              }`}
+            >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -156,12 +168,12 @@ export function Sidebar({
                 </span>
               </div>
             )}
-          </Link>
+          </div>
 
           {/* Desktop Collapse Button */}
           <button
             onClick={onToggleCollapse}
-            className="hidden lg:flex p-1.5 rounded-lg text-[#64748B] hover:text-[#0284C7] hover:bg-[#F1F5F9] transition-colors cursor-pointer"
+            className="hidden lg:flex flex-shrink-0 p-1 rounded-lg text-[#64748B] hover:text-[#0284C7] hover:bg-[#F1F5F9] transition-colors cursor-pointer"
             title={collapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
           >
             {collapsed ? <ChevronsRight className="w-5 h-5" /> : <ChevronsLeft className="w-5 h-5" />}
