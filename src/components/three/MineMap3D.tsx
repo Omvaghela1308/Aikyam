@@ -672,6 +672,8 @@ function VerticalConnectingShafts({
 // ----------------------------------------------------------------------
 // 3D WORKER FIGURE (Capsule, Hard-Hat, Pulsing Status Ring, Floating Label)
 // ----------------------------------------------------------------------
+const WORKER_WALK_SPEED = 0.15;
+
 function Worker3DFigure({
   worker,
   levelIndex,
@@ -700,7 +702,8 @@ function Worker3DFigure({
   // Compute smooth moving path along the tunnel
   useFrame(({ clock }) => {
     if (groupRef.current) {
-      const t = clock.getElapsedTime() * 0.5 + waypointOffset;
+      // Walking pace: one end of the tunnel to the other takes about 20 seconds
+      const t = clock.getElapsedTime() * WORKER_WALK_SPEED + waypointOffset;
       // Path oscillates naturally along tunnel X and slight Z
       const posX = Math.sin(t) * 12 + (waypointOffset % 4) * 2;
       const posZ = Math.cos(t * 0.7) * 2.2;
