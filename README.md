@@ -82,7 +82,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to explore the MineGuard dashboard.
+Open [https://aikyam1.vercel.app/(https://aikyam1.vercel.app/) with your browser to explore the MineGuard dashboard.
 
 ### Building for Production
 ```bash
