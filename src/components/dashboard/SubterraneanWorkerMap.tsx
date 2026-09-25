@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import {
   MapPin,
@@ -48,6 +48,12 @@ export default function SubterraneanWorkerMap({
   const [is3dStackedView, setIs3dStackedView] = useState<boolean>(false);
   const [zoomScale, setZoomScale] = useState<number>(1);
   const [resetViewKey, setResetViewKey] = useState<number>(0);
+  const [showHint, setShowHint] = useState<boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowHint(false), 6000);
+    return () => clearTimeout(timer);
+  }, []);
   const [selectedPin, setSelectedPin] = useState<string | null>(null);
 
   const levelDetails = [
@@ -159,7 +165,7 @@ export default function SubterraneanWorkerMap({
         </div>
 
         {/* Real Three.js Canvas Scene */}
-        <div className="absolute inset-0 z-10">
+        <div className="absolute inset-0 z-10" onPointerDown={() => setShowHint(false)}>
           <MineMap3D
             activeLevelIndex={activeLevelIndex}
             is3dStackedView={is3dStackedView}
@@ -172,8 +178,8 @@ export default function SubterraneanWorkerMap({
           />
         </div>
 
-        {/* How to move the view */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-24 sm:bottom-20 z-20 pointer-events-none flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/70 backdrop-blur-sm border border-white/10 text-[11px] font-semibold text-slate-200 whitespace-nowrap">
+        {/* How to move the view; fades after the first touch or a few seconds */}
+        <div className={`absolute left-1/2 -translate-x-1/2 bottom-24 sm:bottom-20 z-20 pointer-events-none transition-opacity duration-700 ${showHint ? 'opacity-100' : 'opacity-0'} flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/70 backdrop-blur-sm border border-white/10 text-[11px] font-semibold text-slate-200 whitespace-nowrap`}>
           <Hand className="w-3.5 h-3.5 text-sky-300" />
           <span className="hidden sm:inline">Drag to rotate &amp; tilt · Scroll to zoom · Right-drag to pan</span>
           <span className="sm:hidden">Drag to rotate · Pinch to zoom</span>

@@ -403,17 +403,18 @@ function UndergroundLevel({
       {/* 3D Level Label Tag in 3D Space */}
       <Float speed={1.5} rotationIntensity={0} floatIntensity={0.2}>
         <Html position={[-20, 2.5, -14]} center>
+          {/* Other levels get a small muted tag so they don't crowd the active one */}
           <div
             onClick={(e) => { e.stopPropagation(); onSelect(); }}
-            className={`px-3 py-1.5 rounded-xl border font-mono font-bold text-xs shadow-lg transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
+            className={`rounded-xl border font-mono font-bold shadow-lg transition-all cursor-pointer flex items-center whitespace-nowrap ${
               isActive
-                ? 'bg-slate-900 text-white border-sky-400 ring-2 ring-sky-400/40 scale-105'
-                : 'bg-white/80 text-slate-700 border-slate-300 hover:bg-white'
+                ? 'px-3 py-1.5 gap-2 text-xs bg-slate-900 text-white border-sky-400 ring-2 ring-sky-400/40'
+                : 'px-2 py-0.5 gap-1.5 text-[10px] bg-slate-900/60 text-slate-300 border-slate-600 opacity-80 hover:opacity-100 hover:bg-slate-900'
             }`}
           >
-            <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-sky-400 animate-pulse' : 'bg-slate-400'}`} />
+            <span className={`rounded-full ${isActive ? 'w-2 h-2 bg-sky-400 animate-pulse' : 'w-1.5 h-1.5 bg-slate-400'}`} />
             <span>{level.name}</span>
-            <span className="text-sky-400 font-extrabold">{level.depth}</span>
+            <span className={isActive ? 'text-sky-400 font-extrabold' : 'text-slate-400'}>{level.depth}</span>
           </div>
         </Html>
       </Float>
@@ -516,11 +517,13 @@ function UndergroundLevel({
             opacity={levelOpacity}
           />
         </mesh>
-        <Html position={[0, 2.2, 0]} center>
-          <div className="px-2 py-0.5 rounded bg-emerald-950/90 text-emerald-400 font-mono text-[9px] font-bold border border-emerald-500 whitespace-nowrap shadow-xs">
-            REFUGE #2 (O₂ Safe)
-          </div>
-        </Html>
+        {isActive && (
+          <Html position={[0, 2.2, 0]} center>
+            <div className="px-2 py-0.5 rounded bg-emerald-950/90 text-emerald-400 font-mono text-[9px] font-bold border border-emerald-500 whitespace-nowrap shadow-xs">
+              REFUGE #2 (O₂ Safe)
+            </div>
+          </Html>
+        )}
       </group>
 
       {/* ---------------- 3D SUB-STATION 4 (Equipment Box) ---------------- */}
@@ -540,11 +543,13 @@ function UndergroundLevel({
           <planeGeometry args={[1.8, 0.6]} />
           <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1} />
         </mesh>
-        <Html position={[0, 1.8, 0]} center>
-          <div className="px-2 py-0.5 rounded bg-sky-950/90 text-sky-300 font-mono text-[9px] font-bold border border-sky-400 whitespace-nowrap shadow-xs">
-            SUB-STATION 4 (Sub-GHz)
-          </div>
-        </Html>
+        {isActive && (
+          <Html position={[0, 1.8, 0]} center>
+            <div className="px-2 py-0.5 rounded bg-sky-950/90 text-sky-300 font-mono text-[9px] font-bold border border-sky-400 whitespace-nowrap shadow-xs">
+              SUB-STATION 4 (Sub-GHz)
+            </div>
+          </Html>
+        )}
       </group>
 
       {/* ---------------- 3D UWB BEACON NODES ON TUNNEL WALLS ---------------- */}
@@ -669,6 +674,7 @@ function Worker3DFigure({
   levelIndex,
   is3dStackedView,
   isSelected,
+  isOnActiveLevel,
   onSelect,
   waypointOffset,
 }: {
@@ -676,6 +682,7 @@ function Worker3DFigure({
   levelIndex: number;
   is3dStackedView: boolean;
   isSelected: boolean;
+  isOnActiveLevel: boolean;
   onSelect: () => void;
   waypointOffset: number;
 }) {
@@ -756,6 +763,16 @@ function Worker3DFigure({
 
       {/* Drei Floating Circular Avatar Label & Info Badge */}
       <Html position={[0, 1.8, 0]} center>
+        {!isOnActiveLevel && !isSelected ? (
+          // Workers on other levels: just a small status dot so labels don't pile up
+          <div
+            onClick={(e) => { e.stopPropagation(); onSelect(); }}
+            title={`${worker.name} (${worker.jacketId})`}
+            className={`w-2.5 h-2.5 rounded-full border border-white/60 cursor-pointer opacity-80 ${
+              isSOS ? 'bg-rose-500' : isWarning ? 'bg-amber-500' : 'bg-emerald-500'
+            }`}
+          />
+        ) : (
         <div
           onClick={(e) => { e.stopPropagation(); onSelect(); }}
           className={`flex flex-col items-center group cursor-pointer transition-transform ${
@@ -780,6 +797,7 @@ function Worker3DFigure({
             {worker.jacketId}
           </div>
         </div>
+        )}
       </Html>
     </group>
   );
@@ -901,6 +919,7 @@ export default function MineMap3D({
               levelIndex={assignedLevel}
               is3dStackedView={is3dStackedView}
               isSelected={w.id === selectedWorkerId}
+              isOnActiveLevel={assignedLevel === activeLevelIndex}
               onSelect={() => onSelectWorker(w.id)}
               waypointOffset={index * 1.57}
             />
