@@ -1,4 +1,4 @@
-# 🦺 MineGuard — AI-Based Multi-Hazard Underground Mining Safety System
+# MineGuard — AI-Based Multi-Hazard Underground Mining Safety System
 
 > **Tagline:** *Sense. Connect. Protect.*  
 > **Initiative:** Smart India Hackathon (SIH) — SIH 206  
@@ -6,7 +6,7 @@
 
 ---
 
-## 🌟 Overview
+## Overview
 
 **MineGuard** is an advanced AI-powered underground mine safety and telemetry monitoring platform. Integrating smart safety jackets, multi-gas optical sensor arrays (NDIR H2S, CH4, CO), sub-surface environmental telemetry, and sub-meter UWB mesh positioning, MineGuard safeguards miners in real time.
 
@@ -14,7 +14,7 @@ The dashboard UI is inspired by modern light-mode web designs (such as Unstop.co
 
 ---
 
-## 🎨 Design System & Aesthetic Principles
+## Design System & Aesthetic Principles
 
 - **Color Palette:**
   - **Canvas Background:** `#EEF3FA` (Soft cool-grey page background)
@@ -38,7 +38,7 @@ The dashboard UI is inspired by modern light-mode web designs (such as Unstop.co
 
 ---
 
-## 🧭 Navigation & Page Structure
+## Navigation & Page Structure
 
 | Route | Page | Description |
 |---|---|---|
@@ -55,7 +55,7 @@ The dashboard UI is inspired by modern light-mode web designs (such as Unstop.co
 
 ---
 
-## 👥 Role Switcher
+## Role Switcher
 
 Using the **"You're viewing as"** selector in the sidebar, users can toggle between three operational roles:
 1. **Supervisor** — Central Command, safety oversight, sensor calibrations
@@ -64,7 +64,7 @@ Using the **"You're viewing as"** selector in the sidebar, users can toggle betw
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18.18+ or 20+
